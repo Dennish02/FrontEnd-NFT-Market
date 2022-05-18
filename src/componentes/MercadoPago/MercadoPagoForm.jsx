@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import useScript from "../../hooks/useScript";
 import { formConfig } from "./formConfig";
 //import Card from "react-credit-cards";
-import "react-credit-cards/es/styles-compiled.css";
+//import "react-credit-cards/es/styles-compiled.css";
 //import useMercadoPago from "../../hooks/useMercadoPago";
 import { useDispatch } from "react-redux";
 import { allNftMarket } from "../../../redux/actions/actionNFT";
