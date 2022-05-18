@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useScript from "../../hooks/useScript";
 import { formConfig } from "./formConfig";
-import Card from "react-credit-cards";
-import "react-credit-cards/es/styles-compiled.css";
+//import Card from "react-credit-cards";
+//import "react-credit-cards/es/styles-compiled.css";
 //import useMercadoPago from "../../hooks/useMercadoPago";
 import { useDispatch } from "react-redux";
 import { allNftMarket } from "../../../redux/actions/actionNFT";
@@ -138,14 +138,14 @@ export default function MercadoPagoForm({closeModal, compra}) {
     return (
         <div className="container">
             <button className="close" onClick={closeModal}>❌</button>
-            <Card
+           /* <Card
                 cvc={state.cvc}
                 expiry={state.cardExpirationMonth + state.cardExpirationYear}
                 name={state.cardholderName}
                 number={state.cardNumber}
                 focused={state.focus}
                 brand={state.issuer}
-            />
+            />*/
 
             <form id="form-checkout">
                 <div className="form-control">
