@@ -3,14 +3,14 @@ import NavWallet from "../componentes/wallet/NavWallet"
 import ComponentNFTWallet from "../componentes/wallet/ComponentNFTWallet"
 import { useSelector, useDispatch  } from "react-redux"
 import formateoPrecio from "../middleware/formateoPrecio";
-import { allNftMarket } from  "../../redux/actions/actionNFT"
+import { allNftMarket} from  "../../redux/actions/actionNFT"
 //import MercadoPagoForm from '../componentes/MercadoPago/MercadoPagoForm.jsx'
 //import Modal from 'react-modal';
 import mp from '../img/mp.png'
 import { toast } from 'react-toastify';
 import Paginado from './Paginas';
 import { comprarCL } from '../../redux/actions/actionUSER';
-import { useNavigate } from 'react-router';
+//import { useNavigate } from 'react-router';
 
 // const customStyles = {
 //   content: {
@@ -58,10 +58,12 @@ const goToPreviousPage = () => {
 const params = window.location.href;
 const [ruta, setRuta ] = useState()
 
+
 function handleButton(e) {
   e.preventDefault()
   !compra? toast.info('Deebes ingresar in monto') :
   //setShowModal(true);
+  localStorage.setItem('valor', `${compra}`)
   dispatch(comprarCL(compra))
 
 }
@@ -113,7 +115,11 @@ useEffect(() => {
                 
                
                
-              </div> </>: <a  href={ruta}> <p>Pagar</p><img  className='logomp' src={mp} /> </a>}
+              </div> </>: <a  href={ruta}> 
+                   <button  >
+                      <p>Pagar</p>
+                      <img   className='logomp' src={mp} />  
+                   </button>  </a>}
 
 
               <p>Transeferí CL a otro usuario</p>
