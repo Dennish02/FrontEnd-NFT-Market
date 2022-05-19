@@ -23,6 +23,7 @@ import Register from "./pages/Register.jsx";
 import Wallet from "./pages/Wallet.jsx";
 import Settings from "./pages/Settings.jsx";
 import UpdatePassword from "./componentes/settings/updatePassword"
+import ConfirmarCompra from "./componentes/wallet/ConfirmarCompra.jsx";
 
 
 function App() {
@@ -59,7 +60,13 @@ function App() {
         >
           <Route index element={<Wallet />} />
         </Route>
-
+        <Route
+          path="home/usuario/wallet/confirmar"
+          element={<VerificacionUsuario />}
+        >
+          <Route index element={<ConfirmarCompra />} />
+        </Route>
+        
         <Route
           path="/home/usuario/setting"
           element={<VerificacionUsuario />}
