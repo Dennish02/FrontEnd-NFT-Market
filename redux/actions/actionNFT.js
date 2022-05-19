@@ -214,8 +214,9 @@ export function venta(payload) {
             progress: undefined,
           });
       //socket.io
-      socket.emit("renderHome");
       socket.emit("update");
+      socket.emit("renderHome");
+      
 
     } catch (e) {
       toast.error(e.response.data.msg);
