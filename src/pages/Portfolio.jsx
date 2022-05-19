@@ -20,7 +20,7 @@ export default function Portfolio() {
     dispatch(allNFTUser());
     dispatch(coleccionesUsuario());
     socket = io(import.meta.env.VITE_BACKEND_URL);
-    socket.emit("Actualizar", params);
+    socket.emit("portfolio", params);
   }, []);
 
   useEffect(() => {
