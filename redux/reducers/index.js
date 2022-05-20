@@ -76,8 +76,11 @@ function rootReducer(state = initialState, action) {
         colecciones: action.payload,
       };
       case LOAD_COLECCIONES:
+       const estado = state.colecciones
+
         return {
-          ...state
+          ...state,
+          estado
         }
     // case USER_NFT:
     //   const filter = state.allNft.filter((e) => e.ownerId === action.payload);
@@ -174,22 +177,22 @@ function rootReducer(state = initialState, action) {
     case SHOW_USERS_ID:
       return {
         ...state,
-
         usersInfo: action.payload,
       };
     case SAVE_VALUE:
       return {
         ...state,
       }
-    case FILTER_COLECTION:
-      const nftForFilter = state.backUpNftUser
-      const filter = nftForFilter.filter(el => el.colection.includes(action.payload))
-
-
-      return {
-        ...state,
-        nftUser: action.payload == 'todos' ? state.backUpNftUser : filter
-      }
+      case FILTER_COLECTION:
+        console.log('hola desde reducer');
+        const nftForFilter = state.backUpNftUser
+        const filter = nftForFilter.filter(el => el.colection===(action.payload))
+  
+  
+        return {
+          ...state,
+          nftUser: action.payload == 'todos' ? state.backUpNftUser : filter
+        }
     case SAVE_VALUE:
       return {
         ...state,

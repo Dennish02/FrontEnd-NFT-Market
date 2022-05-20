@@ -1205,3 +1205,130 @@ img {
   font-size: 2.5rem;
   border: solid 1px #e1e1e1;
 }
+
+.contFavoritos {
+  margin: 0 auto;
+  width: 90%;
+}
+
+.second-grid {
+  grid-column-start: 2;
+  grid-column-end: 2;
+}
+
+.contNFTWallet h2 {
+  color: #f28b12;
+  font-size: 2.9rem;
+  margin: 0;
+}
+.contNFTWallet p {
+  color: #e1e1e1;
+  font-size: 2rem;
+}
+.contNFTWallet span {
+  color: #f28b12;
+  font-size: 2.3rem;
+  font-weight: bold;
+}
+.contNFTWallet .imgFav {
+  height: 250px;
+  width: 250px;
+}
+@supports (object-fit: cover) {
+  .contNFTWallet .imgFav img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+  }
+}
+
+.last-grid {
+  grid-column-start: 4;
+  grid-column-end: 4;
+  width: fit-content;
+  background-color: #29a237;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem 0;
+}
+.last-grid:hover {
+  cursor: pointer;
+}
+
+.third-grid {
+  grid-column-start: 3;
+  grid-column-end: 3;
+  display: inline-block;
+}
+
+.first-grid {
+  grid-column-start: 1;
+  grid-column-end: 1;
+}
+
+.btn-group {
+  display: flex;
+  width: 100%;
+  border-radius: 0.5rem;
+  gap: 2rem;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.buy-button {
+  margin: 0;
+  width: fit-content;
+  background-color: #29a237;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem 0;
+  font-size: 2rem;
+}
+.buy-button:hover {
+  cursor: pointer;
+}
+
+.delete-button {
+  margin: 0;
+  width: fit-content;
+  background-color: #c53838;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem auto;
+  font-size: 2rem;
+}
+.delete-button:hover {
+  cursor: pointer;
+}
+
+.back-button {
+  width: fit-content;
+  background-color: #663a8f;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem auto;
+  font-size: 2rem;
+}
+.back-button:hover {
+  cursor: pointer;
+}

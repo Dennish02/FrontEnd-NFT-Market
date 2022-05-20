@@ -263,6 +263,7 @@ export function Gift_NFT(iduser, idnft, colection) {
 }
 
 export function filterColection(payload) {
+  console.log('hola desde action');
   return {
     type: FILTER_COLECTION,
     payload,

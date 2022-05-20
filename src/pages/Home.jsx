@@ -29,13 +29,13 @@ export default function Home() {
     //recibir la respuesta del back
     socket.on("homeUpdate", () => {
       dispatch(allNftMarket());
-       dispatch(allNFTUser());
+       //dispatch(allNFTUser());
     });
   });
 
   return (
     <div className="contentHome">
-      <NavBar />
+      <NavBar usuario={usuario} />
       <div>
         <SearchBar />
       </div>
