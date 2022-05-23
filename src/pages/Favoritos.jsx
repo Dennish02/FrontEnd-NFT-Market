@@ -15,18 +15,19 @@ export default function Favoritos() {
     const params = window.location.href;
 
 
+  
+    useEffect(()=>{ 
+        dispatch(usuarioActual())
+        socket = io(import.meta.env.VITE_BACKEND_URL);
+        socket.emit("RenderFav", params);
+    },[])
+
     useEffect(()=>{ 
         socket.on("updatefav", () => {
             dispatch(usuarioActual())
             dispatch(allNftMarket());
           })
         
-    },[])
-
-    useEffect(()=>{ 
-        dispatch(usuarioActual())
-        socket = io(import.meta.env.VITE_BACKEND_URL);
-        socket.emit("RenderFav", params);
     },[])
 
     return (
