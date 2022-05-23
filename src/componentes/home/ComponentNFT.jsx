@@ -82,7 +82,7 @@ export default function ComponentNFT(props) {
       </div>
 
       <div className="contNFTinfo">
-        <p>{`ranking: ${ranking}`}</p>
+       
         <h2>{`${colection}  ${id}`}</h2>
         <p>{`creator:  ${creatorId}`}</p>
         <p>
