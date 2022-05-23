@@ -60,7 +60,6 @@ function Wallet() {
   }, []);
 
   const paginas = (pageNumber) => {
-    //console.log(pageNumber);
     setCurrentPage(pageNumber);
   };
   const goToNextPage = () => setCurrentPage(currentPage + 1);
@@ -120,7 +119,6 @@ function Wallet() {
         error: ""
       })
     }
-    console.log(transferencias)
   }
 
   const handleInputCl = (e) => {
@@ -137,7 +135,7 @@ function Wallet() {
         clerror:""
       })
     }
-    console.log(e.target.value)
+  
   }
 
   const handleSubmitTransfer = (e) => {

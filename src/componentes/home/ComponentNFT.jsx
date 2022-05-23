@@ -64,7 +64,6 @@ export default function ComponentNFT(props) {
       setLikeFlag(true);
       nftfilter = todosLosNFT.find((e) => e._id === _id);
       like.like ? setImglike(likeOn) : setImglike(likeOf);
-      // console.log(like.like);
       dispatch(darLike(_id));
       setTimeout(() => {
         setLikeFlag(false);

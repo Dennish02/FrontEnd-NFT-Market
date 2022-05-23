@@ -48,7 +48,6 @@ export default function Home() {
   const [screen, setScreen] = useState(window.innerWidth);
 
   const paginas = (pageNumber) => {
-    //console.log(pageNumber);
     setCurrentPage(pageNumber);
     dispatch(guardarPagina(pageNumber))
   };
