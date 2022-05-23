@@ -53,12 +53,16 @@ export default function ComponentNFT(props) {
 
 function handleLike(){
   nftfilter = todosLosNFT.find(e => e._id === _id)
-  like.like? 
-  setImglike(likeOn):
-  setImglike(likeOf)
-
-  console.log(like.like);
+ if(like.like && !like.like === undefined) {
+  setImglike(likeOn)
   dispatch(darLike(_id))
+ } else{
+  setImglike(likeOf)
+  dispatch(darLike(_id))
+ }
+  
+  
+  
 }
   function handleBuy() {
     confirm("Queres comprar este nft?")

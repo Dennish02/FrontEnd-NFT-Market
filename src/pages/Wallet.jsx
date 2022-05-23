@@ -89,7 +89,7 @@ function Wallet() {
     socket.on("TransferenciaOk", () => {
       dispatch(usuarioActual())
     })
-  });
+  },[]);
 
   function MostrarModal () {
     setMostrarModal(true);

@@ -12,7 +12,7 @@ function Settings() {
   const dispatch = useDispatch();
   const params = window.location.href;
   const usuario = useSelector((state) => state.usuario);
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   useEffect(() => {
     // dispatch(usuarioActual());
