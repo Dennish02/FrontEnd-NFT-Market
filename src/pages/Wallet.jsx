@@ -36,11 +36,14 @@ function Wallet() {
   //paginacion
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [elementsByPage, setElementsByPage] = useState(5);
-  const [transactionByPage, setTransactionByPage] = useState(5);
-  const indexOfLastTransactions = currentPage * transactionByPage;
-  const indexOfFirstTransaction = indexOfLastTransactions - transactionByPage;
 
+  const [transactionByPage, setTransactionByPage] = useState(5);
+
+
+
+  const [elementsByPage, setElementsByPage] = useState(5);
+  const indexOfLastTransactions = currentPage * elementsByPage;
+  const indexOfFirstTransaction = indexOfLastTransactions - elementsByPage;
 
   let currentTransaction;
   if (usuario.length !== 0) {
