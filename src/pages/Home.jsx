@@ -24,7 +24,7 @@ export default function Home() {
   const ranking = useSelector(state=> state.ranking)
   //const token = localStorage.getItem("token");
   const [orden, setOrden] = useState('')
-  const like = useSelector(state => state.likeNft)
+  
 
   //Paginado 
   const [currentPage, setCurrentPage] = useState(1);
@@ -86,7 +86,7 @@ export default function Home() {
                   {
                     <ComponentNFT
                     todosLosNFT={todosLosNFT}
-                    like={like}
+                    ranking={nft.ranking}
                       usuario={usuarioAct}
                       _id={nft._id}
                       id={nft.id}

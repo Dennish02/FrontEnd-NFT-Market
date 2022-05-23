@@ -355,6 +355,7 @@ export function setNewCoin(value) {
   };
 }
 export function darLike(id){
+ 
     return async function(dispatch){
       const token = localStorage.getItem("token");
     const authAxios = clienteAxios.create({

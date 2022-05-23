@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { comprarNFT, AñadirFav, eliminarFav, darLike } from "../../../redux/actions/actionNFT";
 import formateoPrecio from "../../middleware/formateoPrecio";
 import pocentajeAumento from "../../middleware/pocentajeAumento";
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 
 import favOn from '../../img/favOn.png';
 import favOf from '../../img/favOf.png';
@@ -24,11 +24,12 @@ export default function ComponentNFT(props) {
     creatorId,
     ownerId,
     usuario,
-    like,
-    todosLosNFT
+    ranking
   } = props;
+
+
   let porcentaje = pocentajeAumento(priceBase, price);
- 
+  const like = useSelector(state => state.likeNft)
 
   //const user = useSelector(state => state.usuario)
   if(!usuario) 'cargando'
@@ -39,7 +40,7 @@ export default function ComponentNFT(props) {
   usuario.favoritos ? idFavorito = usuario.favoritos : null
   let extraerId = ''
   idFavorito ? extraerId = idFavorito.map(el => el._id) : null
-  let nftfilter 
+ // let nftfilter 
   const [imglike, setImglike] = useState(likeOf)
 
   function añadirFavorito() {
@@ -52,10 +53,12 @@ export default function ComponentNFT(props) {
   }
 
 function handleLike(){
-  nftfilter = todosLosNFT.find(e => e._id === _id)
- if(like.like && !like.like === undefined) {
+  
+  //nftfilter = todosLosNFT.find(e => e._id === _id)
+ if(like.length !== 0 && like.like  ) {
   setImglike(likeOn)
   dispatch(darLike(_id))
+  
  } else{
   setImglike(likeOf)
   dispatch(darLike(_id))
@@ -107,8 +110,10 @@ function handleLike(){
         </button>   <button  className="w-50 buttonTrade">Trade</button> </>: null}
 
      </div>
- 
+    <div className="contLike">
 
+    </div>
+     <p className="cantlike">{`${ranking}`}</p>      
     
      <img 
      className="buttonlike" 

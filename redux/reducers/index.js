@@ -98,7 +98,6 @@ function rootReducer(state = initialState, action) {
         nftUser: action.payload,
         backUpNftUser: action.payload
       };
-
     case ACTUAL:
       return {
         ...state,
