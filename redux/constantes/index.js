@@ -18,6 +18,7 @@ export const ALL_NFT_MARKET = "ALL_NFT_MARKET";
 export const SHOW_USERS_ID = "SHOW_USERS_ID";
 export const FILTER_COLECTION = 'FILTER_COLECTION'
 export const SET_COLECCIONES = "SET_COLECCIONES";
+export const SORT = "SORT"
 export const LOAD_COLECCIONES = "LOAD_COLECCIONES";
 
 //USER
@@ -37,7 +38,11 @@ export const VALIDATE_USER = "VALIDATE_USER";
 
 export const SAVE_VALUE= "SAVE_VALUE"
 
+export const LIKE_NFT="LIKE_NFT"
+
+export const TRANSFERIR_CL = "TRANSFERIR_CL"
 
 export const ACTUAL = "ACTUAL";
+export const RANKING_PORTFOLIOS = "RANKING_PORTFOLIOS"
 
 

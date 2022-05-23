@@ -17,9 +17,16 @@
   .enVenta {
     @include m.enVenta;
   }
+  .verde{
+    background-color: v.$verde
+  }
+  .rojo{
+    background-color: v.$rojo
+  }
   .noVenta {
     @include m.noVenta;
   }
+ 
   .textVenta{
     color: v.$grisclaro;
     margin-right: 1rem;
@@ -85,6 +92,15 @@
     width: 30px;
     position: absolute;
     bottom: 95px;
+    left: 85%;
+    &:hover{
+      cursor: pointer;
+    }
+  }
+  .buttonlike{
+    width: 30px;
+    position: absolute;
+    bottom: 200px;
     left: 85%;
     &:hover{
       cursor: pointer;

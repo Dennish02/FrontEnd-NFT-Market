@@ -19,7 +19,10 @@ import {
   SAVE_VALUE,
   ACTUAL,
   FILTER_COLECTION,
-  
+  TRANSFERIR_CL,
+  RANKING_PORTFOLIOS,
+  LIKE_NFT,
+  SORT,
   LOAD_COLECCIONES
 
 
@@ -31,6 +34,7 @@ const initialState = {
   nftUser: [],
   backUpNftUser: [],
   usuario: [],
+  usuarioActual: [],
   allUsuarios: [],
   confirmacion: {},
   errorEmail: [],
@@ -39,7 +43,10 @@ const initialState = {
   creado: false,
   colecciones: [],
   usersInfo: [],
-  valor:[]
+  valor:[],
+  ranking:[],
+  likeNft:[],
+  transferencias:[],
 };
 
 function rootReducer(state = initialState, action) {
@@ -50,13 +57,13 @@ function rootReducer(state = initialState, action) {
           ...state,
           allNft: action.payload.nftAlldb,
           backUpAllNft: action.payload.nftAlldb,
-          usuario: action.payload.usuario,
+          //usuario: action.payload.usuario,
         };
       }
       return {
         ...state,
         backUpAllNft: action.payload.nftAlldb,
-        usuario: action.payload.usuario,
+        //usuario: action.payload.usuario,
       };
 
     case CREATE_NFT:
@@ -76,11 +83,8 @@ function rootReducer(state = initialState, action) {
         colecciones: action.payload,
       };
       case LOAD_COLECCIONES:
-       const estado = state.colecciones
-
         return {
-          ...state,
-          estado
+          ...state
         }
     // case USER_NFT:
     //   const filter = state.allNft.filter((e) => e.ownerId === action.payload);
@@ -98,7 +102,7 @@ function rootReducer(state = initialState, action) {
     case ACTUAL:
       return {
         ...state,
-        usuario: action.payload,
+        usuarioActual: action.payload,
       };
 
     case LOGIN_USER:
@@ -116,6 +120,7 @@ function rootReducer(state = initialState, action) {
         nftUser: [],
         backUpNftUser: [],
         usuario: [],
+        usuarioActual:[],
         allUsuarios: [],
         confirmacion: {},
         errorEmail: [],
@@ -147,7 +152,7 @@ function rootReducer(state = initialState, action) {
       };
 
     case RESET_PASSWORD:
-      console.log(action.payload.error);
+      //console.log(action.payload.error);
       return {
         ...state,
         errorEmail: action.payload,
@@ -183,21 +188,52 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
       }
-      case FILTER_COLECTION:
-        console.log('hola desde reducer');
-        const nftForFilter = state.backUpNftUser
-        const filter = nftForFilter.filter(el => el.colection===(action.payload))
-  
-  
-        return {
-          ...state,
-          nftUser: action.payload == 'todos' ? state.backUpNftUser : filter
-        }
+    case FILTER_COLECTION:
+      const nftForFilter = state.backUpNftUser
+      const filter = nftForFilter.filter(el => el.colection.includes(action.payload))
+
+
+      return {
+        ...state,
+        nftUser: action.payload == 'todos' ? state.backUpNftUser : filter
+      }
     case SAVE_VALUE:
       return {
         ...state,
       }    
 
+    case TRANSFERIR_CL:
+      return {
+        ...state,
+      }
+    case RANKING_PORTFOLIOS:
+        return {
+          ...state,
+          ranking: action.payload
+        }
+
+
+    case SORT:
+      const NFTOrdenados = state.allNft.sort((a,b) => {
+        if(action.payload === 'price_asc'){
+          return a.price - b.price
+        }
+        else if(action.payload === 'price_desc'){
+          return b.price - a.price
+        }
+      })
+      let aux = NFTOrdenados.map(el => el)
+      return {
+        ...state,
+        allNFT: aux,
+
+      }
+    case LIKE_NFT:
+      const like = action.payload.msg ? { msg: action.payload.msg, like :true} : { msg: action.payload.alert, like :false}
+      return{
+        ...state,
+        likeNft: like
+      }  
     default:
       return state;
   }

@@ -1,15 +1,18 @@
-import React from "react";
-import { comprarNFT, AñadirFav, eliminarFav } from "../../../redux/actions/actionNFT";
+import React, { useState } from "react";
+import { comprarNFT, AñadirFav, eliminarFav, darLike } from "../../../redux/actions/actionNFT";
 import formateoPrecio from "../../middleware/formateoPrecio";
 import pocentajeAumento from "../../middleware/pocentajeAumento";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import favOn from '../../img/likeOn.png';
-import favOf from '../../img/likeOff.png';
+import { useDispatch} from "react-redux";
+
+import favOn from '../../img/favOn.png';
+import favOf from '../../img/favOf.png';
+import likeOn from '../../img/likeOn.png';
+import likeOf from '../../img/likeOff.png';
 
 
 
 export default function ComponentNFT(props) {
+  const dispatch = useDispatch()
   const {
     _id,
     id,
@@ -20,36 +23,48 @@ export default function ComponentNFT(props) {
     price,
     creatorId,
     ownerId,
+    usuario,
+    like,
+    todosLosNFT
   } = props;
   let porcentaje = pocentajeAumento(priceBase, price);
-  const dispatch = useDispatch();
-
-
-  
- const user = useSelector(state => state.usuario)
- let idFavorito = ''
- let validarBoton = ''
- user.favoritos? validarBoton = user.favoritos : null
- user.favoritos? idFavorito = user.favoritos : null
- let extraerId = ''
- idFavorito.length>0? extraerId = idFavorito.map(el => el._id) : null
  
 
-function añadirFavorito(){
+  //const user = useSelector(state => state.usuario)
+  if(!usuario) 'cargando'
 
-  extraerId.includes(_id) ?
+  let idFavorito = ''
+  let validarBoton = ''
+  usuario.favoritos ? validarBoton = usuario.favoritos : null
+  usuario.favoritos ? idFavorito = usuario.favoritos : null
+  let extraerId = ''
+  idFavorito ? extraerId = idFavorito.map(el => el._id) : null
+  let nftfilter 
+  const [imglike, setImglike] = useState(likeOf)
 
-  dispatch(eliminarFav(_id)): 
-  
-  dispatch(AñadirFav(_id))
+  function añadirFavorito() {
+
+    extraerId.includes(_id) ?
+    dispatch(eliminarFav(_id))
+      :
+
+      dispatch(AñadirFav(_id))
+  }
+
+function handleLike(){
+  nftfilter = todosLosNFT.find(e => e._id === _id)
+  like.like? 
+  setImglike(likeOn):
+  setImglike(likeOf)
+
+  console.log(like.like);
+  dispatch(darLike(_id))
 }
- 
- 
-function handleBuy() {
+  function handleBuy() {
     confirm("Queres comprar este nft?")
       ? dispatch(comprarNFT(_id))
       : null;
-}
+  }
 
   return (
     <div className="contNFT">
@@ -80,20 +95,40 @@ function handleBuy() {
         </p>
       </div>
       <div>
-        <p>{avaliable ? "En venta" : "No en venta"}</p>
+        <p className={avaliable ? "verde" : "rojo"}>{avaliable ? "En venta" : "No en venta"}</p>
       </div>
       <div className="contButtons">
-        <button className="w-50 buttonPrimary" onClick={() => handleBuy()}>
-          BUY
-        </button>
-        
+        {ownerId !== usuario.nombre  ? <>  < button disabled={ avaliable === false ? true : false} className={ avaliable ? "w-50 buttonPrimary" : 'disabled'} onClick={() => handleBuy()}>
+        BUY
+        </button>   <button  className="w-50 buttonTrade">Trade</button> </>: null}
+
+     </div>
+ 
+
+    
+     <img 
+     className="buttonlike" 
+     onClick={(e) => handleLike(e)} 
+     src={imglike} alt="likeOn" />
+    
+  
+      
+    
+           
+      
+      { !extraerId.includes(_id) ? 
+      <img 
+      className="buttonFav" 
+      onClick={() => añadirFavorito()} 
+      src={favOf} alt="favOn" /> : 
+
+      <img className="buttonFav" 
+      onClick={() => añadirFavorito()} 
+      src={favOn} alt="favOn" /> }  
+     
          
-        <button className="w-50 buttonTrade">Trade</button>
-      </div>
 
-      {!extraerId.includes(_id) ? <img className="buttonFav" onClick={() => añadirFavorito()} src={favOf} alt="favOn"/>: <img className="buttonFav" onClick={()=> añadirFavorito()} src={favOn} alt="favOn"/>}       
-
-    </div>
+    </div > 
   );
 }
 

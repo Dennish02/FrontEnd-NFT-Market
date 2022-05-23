@@ -13,7 +13,9 @@ import {
   ALL_NFT_MARKET,
   FILTER_COLECTION,
   ADD_NFT_FAVORITE,
+  SORT,
   SAVE_VALUE,
+  LIKE_NFT
 } from "../constantes/index";
 
 import { toast } from "react-toastify";
@@ -29,7 +31,7 @@ export function allNftMarket() {
     if (!token) {
       return;
     }
-
+    
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -166,6 +168,7 @@ export function comprarNFT(payload) {
       //socket.io
       toast.success(`Compraste este NFT: ${nft.data.NFT_id}`);
       socket.emit("renderHome");
+      socket.emit("update");
     } catch (error) {
       toast.error(error.response.data.msg);
     }
@@ -263,7 +266,6 @@ export function Gift_NFT(iduser, idnft, colection) {
 }
 
 export function filterColection(payload) {
-  console.log('hola desde action');
   return {
     type: FILTER_COLECTION,
     payload,
@@ -275,17 +277,23 @@ export function AñadirFav(id) {
     const token = localStorage.getItem("token");
     const authAxios = clienteAxios.create({
       headers: {
+        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
     });
+    try {
+      let json = await authAxios.put(
+        `${import.meta.env.VITE_BACKEND_URL}/api/nft/favoritos/${id}`
+      );
 
-    const json = await authAxios.put(
-      `${import.meta.env.VITE_BACKEND_URL}/api/nft/favoritos/${id}`
-    );
+      socket.emit('renderHome')
+      toast.success(json.data.msg)
+    } catch (error) {
+      toast.error(error)
+    }
 
-    socket.emit('renderHome')
   }
-  };
+};
 
 
 export function eliminarFav(id) {
@@ -293,17 +301,32 @@ export function eliminarFav(id) {
     const token = localStorage.getItem("token");
     const authAxios = clienteAxios.create({
       headers: {
+        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
     });
+    try {
+      let json = await authAxios.put(
+        `${import.meta.env.VITE_BACKEND_URL}/api/nft/sacarFavoritos/${id}`
+      );
 
-    const json = await authAxios.put(
-      `${import.meta.env.VITE_BACKEND_URL}/api/nft/sacarFavoritos/${id}`
-    );
-
-    socket.emit('renderHome')
+      socket.emit('renderHome')
+      toast.success(json.data.msg)
+    } catch (error) {
+      console.log(error);
+    }
+   
   }
-  };
+}
+
+export function sort(payload){
+  return async function(dispatch){
+    return dispatch({
+      type: SORT,
+      payload
+    })
+  }
+}
 
 
 export function setNewCoin(value) {
@@ -330,4 +353,29 @@ export function setNewCoin(value) {
       console.log(error);
     }
   };
+}
+export function darLike(id){
+    return async function(dispatch){
+      const token = localStorage.getItem("token");
+    const authAxios = clienteAxios.create({
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+      try {
+        const json = await authAxios.put(`${import.meta.env.VITE_BACKEND_URL}/api/nft/like/${id}`);
+        json.data.alert ? 
+        toast.warning(json.data.alert)     
+        :
+        toast.success(json.data.msg)
+        socket.emit('renderHome')
+        return dispatch({
+          type: LIKE_NFT,
+          payload:  json.data
+        })
+      } catch (error) {
+        toast.warning(error.response.data.msg);
+      }
+    }
 }
