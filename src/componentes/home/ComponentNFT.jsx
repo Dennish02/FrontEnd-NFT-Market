@@ -125,12 +125,15 @@ export default function ComponentNFT(props) {
         ) : null}
       </div>
 
-      <img
-        className="buttonlike"
-        onClick={(e) => handleLike(e)}
-        src={likeOn}
-        alt="likeOn"
-      />
+      <div className="contLike">
+
+    </div>
+     <p className="cantlike">{`${ranking}`}</p>      
+    
+     <img 
+     className="buttonlike" 
+     onClick={(e) => handleLike(e)} 
+     src={imglike} alt="likeOn" />
 
       {!extraerId.includes(_id) ? (
         <img
