@@ -61,7 +61,7 @@ export default function Portfolio() {
             );
           })
         ) : (
-          <p>loading</p>
+          <h3>No tenes NFT</h3>
         )}
       </div>
     </div>
