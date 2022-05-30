@@ -14,38 +14,37 @@ import {
   ACTUAL,
   TRANSFERIR_CL,
   RANKING_PORTFOLIOS,
+  GOOGLE_LOGIN,
+  NOTIFICATION_USER,
+  NOTIFICATION_USER_TRUE,
 } from "../constantes";
 import { toast } from "react-toastify";
 import axios from "axios";
 let socket;
 socket = io(import.meta.env.VITE_BACKEND_URL);
 
-export function loguinGoogle(googleData) {
+export function registroGoogle(googleData) {
   return async function (dispatch) {
-    const token = googleData.tokenId;
-    const googleId = googleData.googleId;
-    let api = import.meta.env.VITE_API;
-    const config = {
-      headers: {
-        api: api,
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
+    const token = googleData.credential;
+    console.log(token);
     try {
-      var json = await clienteAxios.post(`/usuario/login`, {
-        config,
-        googleId,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/usuario/google`,
+        { idToken: token }
+      );
+      localStorage.setItem("token", response.data.token);
+      console.log("response", response.data);
       return dispatch({
-        type: LOGIN_USER,
-        payload: json.data,
+        type: GOOGLE_LOGIN,
+        payload: response.data,
       });
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      toast.error(err);
     }
   };
 }
+// console.log('data', response.data)
+// toast.success(response.data);
 
 export function registroUsuario({ nombre, email, password1 }) {
   // const n = Math.floor(Math.random() * 10) % 3;
@@ -58,10 +57,9 @@ export function registroUsuario({ nombre, email, password1 }) {
       };
 
       const response = await clienteAxios.post(`/usuario`, body);
-  
+
       toast.success(response.data);
     } catch (e) {
-    
       toast.error(e.response.data.msg);
     }
   };
@@ -71,13 +69,13 @@ export function validateUser(id) {
   return async function (dispatch) {
     try {
       var json = await clienteAxios(`/usuario/confirmar/${id}`);
-      toast.success("Tu usuario se validó correctamente");
+      toast.success("User validated successfully");
       return dispatch({
         type: VALIDATE_USER,
         payload: json.data,
       });
     } catch (error) {
-      toast.error("Hubo un error al validar tu usuario");
+      toast.error("There was an error validating the user");
       return dispatch({
         type: VALIDATE_USER,
         payload: error.response.data,
@@ -230,7 +228,6 @@ export function cambiarImagen(payload) {
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.msg);
-
     }
   };
 }
@@ -335,6 +332,49 @@ export function transferirCL({ cl, user }) {
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.msg);
+    }
+  };
+}
+
+export function searchNotification() {
+  return async function (dispatch) {
+    const token = localStorage.getItem("token");
+    const authAxios = axios.create({
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    try {
+      const json = await authAxios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/usuario/notificaciones`
+      );
+      return dispatch({
+        type: NOTIFICATION_USER,
+        payload: json.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+export function viewNotification(id) {
+  return async function (dispatch) {
+    const token = localStorage.getItem("token");
+    const authAxios = axios.create({
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    try {
+      await authAxios.put(
+        `${import.meta.env.VITE_BACKEND_URL}/api/usuario/notificacion/${id}`
+      );
+
+      return dispatch({
+        type: NOTIFICATION_USER_TRUE,
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 }

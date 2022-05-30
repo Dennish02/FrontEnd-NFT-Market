@@ -8,6 +8,9 @@ import { filterColection } from "../../../redux/actions/actionNFT";
 import { coleccionesUsuario } from "../../../redux/actions/actionColeccion";
 
 const customStyles = {
+  overlay: {
+    backgroundColor: "rgba(11,12,41,0.48)",
+  },
   content: {
     top: "50%",
     left: "50%",
@@ -16,6 +19,9 @@ const customStyles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     padding: "0",
+    margin: "0",
+   // width: "90%",
+    backgroundColor: "#3a3a3a",
   },
 };
 
@@ -47,7 +53,7 @@ export default function PortfoliOptions() {
 
   function crear() {
     if (input.length > 8)
-      return toast.error("el nombre puede tener hasta 8 caracteres");
+      return toast.error("the name can't have more than 8 characters");
     dispatch(crearColeccion(input));
     closeModal();
   }
@@ -57,22 +63,22 @@ export default function PortfoliOptions() {
       <div className="contButton">
         <div className="center">
           <Link to="/home/usuario/nft/crear/">
-            <button className="buttonPrimary">CREAR NFT</button>
+            <button className="buttonPrimary">CREATE NFT</button>
           </Link>
         </div>
         <div className="center">
           <button className="buttonOrange" onClick={showModal}>
-            CREAR COLECCION
+            CREATE COLECTION
           </button>
         </div>
         <div className="center">
           <Link to="/usuario/favoritos">
-            <button className="buttonMorado">MIS FAVORITOS</button>
+            <button className="buttonMorado">MY FAV</button>
           </Link>
         </div>
       </div>
       <div className="contTittle">
-        <h2 className="tuPortfolio">your portfolio</h2>
+        <h2 className="tuPortfolio">Your Portfolio</h2>
         <div>
           <select
             className="coleccion"
@@ -80,7 +86,7 @@ export default function PortfoliOptions() {
             value={coleccion}
             id="colection"
           >
-            <option value="todos">todos</option>
+            <option value="todos">All</option>
             {colecciones.length !== 0
               ? colecciones.map((el) => (
                   <option key={el._id} value={el.name}>
@@ -88,33 +94,34 @@ export default function PortfoliOptions() {
                   </option>
                 ))
               : null}
-            <option value="comprados">comprados</option>
+            <option value="comprados">Purchased</option>
           </select>
         </div>
       </div>
 
       <Modal isOpen={openModal} style={customStyles}>
-        <div className="heigth">
-          <div className="contLogin">
-            <button className="close" onClick={closeModal}>
-              X
-            </button>
-            <div className="contInput">
-              <span>Create colllection</span>
-              <input
-                className="input"
-                type="text"
-                placeholder="insert name"
-                value={input}
-                onChange={(e) => handleInput(e)}
-              />
-            </div>
-            {
-              <button className="buttonPrimary" onClick={() => crear()}>
-                ok
-              </button>
-            }
+        <div className="contLogin">
+          <button className="close" onClick={closeModal}>
+            X
+          </button>
+          <div className="contInput">
+            <span>Create colection</span>
+            <input
+              className="input"
+              type="text"
+              placeholder="insert name"
+              value={input}
+              onChange={(e) => handleInput(e)}
+            />
           </div>
+          {
+            <div className="contButonColection">
+                 <button className="buttonColection" onClick={() => crear()}>
+                 create
+               </button>
+            </div>
+           
+          }
         </div>
       </Modal>
     </div>

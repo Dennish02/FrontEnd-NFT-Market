@@ -14,11 +14,14 @@ import TopPortfolios from "../componentes/home/TopPortfolios";
 import Paginado from "./Paginas";
 import {
   getValuePortfolio,
+  searchNotification,
   topPortfolios,
   usuarioActual,
 } from "../../redux/actions/actionUSER";
 let socket;
 import { guardarPagina } from "../../redux/actions/actionPaginado";
+import NotificationModal from "../componentes/home/NotificationModal";
+import Chat from "../componentes/home/Chat";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -31,13 +34,11 @@ export default function Home() {
   //const token = localStorage.getItem("token");
 
   // const [orden, setOrden] = useState('')
-  const homeGuardado = useSelector(state => state.homeGuardado)
-  const [selectedSort, setSelectedSort] = useState(homeGuardado.ordenamiento)
-  const [orderPop, setOrderPop] = useState('')
-  const like = useSelector(state => state.likeNft)
+  const [selectedSort, setSelectedSort] = useState("sort");
+  const [orderPop, setOrderPop] = useState("");
 
-  //Paginado 
-  const [currentPage, setCurrentPage] = useState(homeGuardado.pagina);
+  //Paginado
+  const [currentPage, setCurrentPage] = useState(1);
   const [nftByPage, setNftByPage] = useState(8);
   const indexOfLastNft = currentPage * nftByPage;
   const indexOfFirstNft = indexOfLastNft - nftByPage;
@@ -46,22 +47,20 @@ export default function Home() {
   );
   let currentNftFilter = currentNft.slice(indexOfFirstNft, indexOfLastNft);
   const [screen, setScreen] = useState(window.innerWidth);
-
+  const  mensajes = document.querySelector('#ulChat')  
   const paginas = (pageNumber) => {
     setCurrentPage(pageNumber);
-    dispatch(guardarPagina(pageNumber))
   };
   const goToNextPage = () => {
     setCurrentPage(currentPage + 1);
-    dispatch(guardarPagina(currentPage + 1))
-  }
+  };
   const goToPreviousPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
-      dispatch(guardarPagina(currentPage - 1))
     }
   };
   useEffect(() => {
+   
     dispatch(usuarioActual());
     dispatch(topPortfolios());
     function handleResize() {
@@ -77,24 +76,36 @@ export default function Home() {
     };
   }, []);
 
+  useEffect(() => {
+    dispatch(usuarioActual());
+  }, [todosLosNFT]);
+
   const test = todosLosNFT.map((el) => el.ranking);
 
   useEffect(() => {
     //recibir la respuesta del back
     socket.on("homeUpdate", () => {
-      dispatch(allNftMarket());
+      dispatch(allNftMarket(1));
       dispatch(usuarioActual());
       dispatch(allNFTUser());
       dispatch(topPortfolios());
+      dispatch(getValuePortfolio());
+      dispatch(searchNotification());
     });
-  },[]);
+  }, []);
 
-  if (!usuarioAct) "cargando";
+  if (!usuarioAct) "Loading";
   return (
     <div className="contentHome">
       <NavBar usuario={usuarioAct} />
+      <NotificationModal usuario={usuarioAct} />
       <div>
-        <SearchBar selectedSort={selectedSort} setSelectedSort={setSelectedSort} paginas={paginas} OrderPop={setOrderPop}/>
+        <SearchBar
+          selectedSort={selectedSort}
+          setSelectedSort={setSelectedSort}
+          paginas={paginas}
+          OrderPop={setOrderPop}
+        />
       </div>
       <Paginado
         goToNextPage={goToNextPage}
@@ -109,11 +120,11 @@ export default function Home() {
           currentNftFilter?.map((nft) => {
             if (usuarioAct.nombre !== nft.ownerId && nft.avaliable) {
               return (
-                <div key={nft.id}>
+                <div key={nft._id}>
                   {
                     <ComponentNFT
+                      screen={screen}
                       todosLosNFT={todosLosNFT}
-                      like={like}
                       usuario={usuarioAct}
                       _id={nft._id}
                       id={nft.id}
@@ -134,16 +145,21 @@ export default function Home() {
           })
         ) : (
           <div>
-            <h3 className="textGray">no hay NFT en venta</h3>
+            <h3 className="textGray">There aren't NFTs on sale</h3>
           </div>
         )}
       </main>
-     
+
       {usuario ? (
         <TopPortfolios ranking={ranking} screen={screen} usuario={usuario} />
       ) : (
         <p>Aweit</p>
       )}
+{socket ? 
+
+   <div className="contChat">
+     <Chat usuario={usuario} socket={socket}/>
+   </div> : ''}
     </div>
   );
 }

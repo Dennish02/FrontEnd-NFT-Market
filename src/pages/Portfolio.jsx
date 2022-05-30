@@ -8,6 +8,7 @@ import { coleccionesUsuario } from "../../redux/actions/actionColeccion";
 
 import io from "socket.io-client";
 import { showUsers, usuarioActual } from "../../redux/actions/actionUSER";
+import NotificationModal from "../componentes/home/NotificationModal";
 let socket;
 
 export default function Portfolio() {
@@ -21,6 +22,7 @@ export default function Portfolio() {
   useEffect(() => {
     dispatch(allNFTUser());
     dispatch(showUsers());
+    dispatch(usuarioActual());
     dispatch(coleccionesUsuario());
     socket = io(import.meta.env.VITE_BACKEND_URL);
     socket.emit("Portfolio", params);
@@ -34,11 +36,12 @@ export default function Portfolio() {
     socket.on("colectionUser", () => {
       dispatch(coleccionesUsuario());
     });
-  },[]);
+  }, []);
 
   return (
     <div className="contentHome">
       <NavBar usuario={usuarioAct} />
+      <NotificationModal usuario={usuarioAct} />
       <OptionsPortfolio />
       <div className="main">
         {nftUser.length > 0 ? (
@@ -61,7 +64,7 @@ export default function Portfolio() {
             );
           })
         ) : (
-          <h3>No tenes NFT</h3>
+          <h3>There aren't NFTs</h3>
         )}
       </div>
     </div>

@@ -24,8 +24,16 @@ import {
   LIKE_NFT,
   SORT,
   LOAD_COLECCIONES,
+  GOOGLE_LOGIN,
   SORT_POP,
-  GUARDAR_PAGINA
+  GUARDAR_PAGINA,
+  TRADE_OFFER,
+  SEE_OFFER,
+  RESPONSE_OFFER,
+  NOTIFICATION_USER,
+  NOTIFICATION_USER_TRUE,
+  CANCEL_OFFER,
+  LIKE_FAVORITE,
 } from "../constantes";
 
 const initialState = {
@@ -43,35 +51,75 @@ const initialState = {
   creado: false,
   colecciones: [],
   usersInfo: [],
-  valor:[],
-  ranking:[],
-  likeNft:[],
-  transferencias:[],
-  allNftFlag: true,
-  homeGuardado: {
-    ordenamiento: 'sort',
-    pagina: 1
-  }
+  valor: [],
+  ranking: [],
+  likeNft: [],
+  transferencias: [],
+  trades: [],
+  notification: [],
+  ordenamiento: 'sort'
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     case ALL_NFT_MARKET:
-    if (state.allNft.length === state.backUpAllNft.length) {
+      return {
+        ...state,
+        allNft: action.payload.nftAlldb,
+        backUpAllNft: action.payload.nftAlldb,
+
+    /*  var {nftAlldb} = action.payload
+      console.log(state.ordenamiento)
+      var {ordenamiento} = state
+      // if(state.ordenamiento === 'price_desc'){
+        nftAlldb = nftAlldb.sort((a, b) => {
+          if (ordenamiento === "price_asc") {
+            return a.price - b.price;
+          } else if (ordenamiento === "price_desc") {
+            return b.price - a.price;
+          } else if (ordenamiento === "ranking_asc") {
+            return a.ranking - b.ranking;
+          } else if (ordenamiento === "ranking_desc") {
+            return b.ranking - a.ranking;
+          } else {
+            return 0
+          }
+        });
+        console.log(nftAlldb)
+  
+      // }
+      if (state.allNft.length === state.backUpAllNft.length) {
         return {
           ...state,
-          allNft: action.payload.nftAlldb,
-          backUpAllNft: action.payload.nftAlldb,
-          allNftFlag:false
+          allNft: nftAlldb,
+          backUpAllNft: nftAlldb
+          // allNft: action.payload.nftAlldb,
+          // backUpAllNft: action.payload.nftAlldb,
           //usuario: action.payload.usuario,
         };
       }
       return {
         ...state,
-        backUpAllNft: action.payload.nftAlldb,
+        backUpAllNft: nftAlldb*/
+        // backUpAllNft: action.payload.nftAlldb,
         //usuario: action.payload.usuario,
+
       };
-  
+
+    // if (state.allNft.length === state.backUpAllNft.length) {
+    //   return {
+    //     ...state,
+    //     allNft: action.payload.nftAlldb,
+    //     backUpAllNft: action.payload.nftAlldb,
+    //     //usuario: action.payload.usuario,
+    //   };
+    // }
+    // return {
+    //   ...state,
+    //   backUpAllNft: action.payload.nftAlldb,
+    //   //usuario: action.payload.usuario,
+    // };
+
     case CREATE_NFT:
       return {
         ...state,
@@ -108,7 +156,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         usuarioActual: action.payload,
       };
-
+    case GOOGLE_LOGIN:
+      return {
+        ...state,
+        usuario: action.payload,
+      };
     case LOGIN_USER:
       return {
         ...state,
@@ -137,6 +189,7 @@ function rootReducer(state = initialState, action) {
         ranking: [],
         likeNft: [],
         transferencias: [],
+        trades: [],
         allNftFlag: true,
       };
     case AUTH_USER:
@@ -234,70 +287,111 @@ function rootReducer(state = initialState, action) {
 
     case SORT:
       //comentario para poder comitear
-      const allNft = state.allNft.sort((a,b) => {
-        if(action.payload === 'price_asc'){
-          return a.price - b.price
-        }
-        else if(action.payload === 'price_desc'){
-          return b.price - a.price
-        }
-        else if(action.payload === 'ranking_asc'){
-          return a.ranking - b.ranking
-        }
-        else if(action.payload === 'ranking_desc'){
-          return b.ranking - a.ranking
-        }
-      })
-      const backUpAllNft = state.backUpAllNft.sort((a,b) => {
-        if(action.payload === 'price_asc'){
-          return a.price - b.price
-        }
-        else if(action.payload === 'price_desc'){
-          return b.price - a.price
-        }
-        else if(action.payload === 'ranking_asc'){
-          return a.ranking - b.ranking
-        }
-        else if(action.payload === 'ranking_desc'){
-          return b.ranking - a.ranking
+      const allNft = state.allNft.sort((a, b) => {
+        if (action.payload === "price_asc") {
+          return a.price - b.price;
+        } else if (action.payload === "price_desc") {
+          return b.price - a.price;
+        } else if (action.payload === "ranking_asc") {
+          return a.ranking - b.ranking;
+        } else if (action.payload === "ranking_desc") {
+          return b.ranking - a.ranking;
         }
       });
+      // const backUpAllNft = state.backUpAllNft.sort((a, b) => {
+      //   if (action.payload === "price_asc") {
+      //     return a.price - b.price;
+      //   } else if (action.payload === "price_desc") {
+      //     return b.price - a.price;
+      //   } else if (action.payload === "ranking_asc") {
+      //     return a.ranking - b.ranking;
+      //   } else if (action.payload === "ranking_desc") {
+      //     return b.ranking - a.ranking;
+      //   }
+      // });
       // let aux = NFTOrdenados.map(el => el)
       return {
         ...state,
         allNft,
-        backUpAllNft,
-        homeGuardado: {
-          ...state.homeGuardado,
-          ordenamiento: action.payload
-        }
-      }
+        // backUpAllNft,
+        //backUpAllNft,
+       // ordenamiento: action.payload
 
-    case LIKE_NFT:
-      const like = action.payload.msg
-        ? { msg: action.payload.msg, like: true }
-        : { msg: action.payload.alert, like: false };
-      return {
-        ...state,
-        likeNft: like,
       };
 
-    case SORT_POP:        
-        let nftForSort =   action.payload == 'high'? state.allNft.sort((a,b) => {  return b.ranking - a.ranking }) : action.payload == 'low'? state.allNft.sort((a,b) => {  return a.ranking - b.ranking }) : state.backUpAllNft
-        let auxiliar = nftForSort.map(el => el )
-        return{
-          ...state,
-          allNFT : auxiliar
-        }
-      case GUARDAR_PAGINA:
-        return {
-          ...state,
-          homeGuardado: {
-            ...state.homeGuardado,
-            pagina: action.payload
-          }
-        }
+    // case LIKE_NFT:
+    //   const like = action.payload.msg
+    //     ? { msg: action.payload.msg, like: true }
+    //     : { msg: action.payload.alert, like: false };
+    //   return {
+    //     ...state,
+    //     likeNft: like,
+    //   };
 
+    case LIKE_FAVORITE:
+      const newNfts = state.allNft.map((e) => {
+        if (e._id === action.payload._id) {
+          e = action.payload;
+          return e;
+        } else return e;
+      });
+
+      return {
+        ...state,
+        allNft: newNfts,
+      };
+
+    case SORT_POP:
+      let nftForSort =
+        action.payload == "high"
+          ? state.allNft.sort((a, b) => {
+              return b.ranking - a.ranking;
+            })
+          : action.payload == "low"
+          ? state.allNft.sort((a, b) => {
+              return a.ranking - b.ranking;
+            })
+          : state.backUpAllNft;
+      let auxiliar = nftForSort.map((el) => el);
+      return {
+        ...state,
+        allNFT: auxiliar,
+      };
+    case GUARDAR_PAGINA:
+      return {
+        ...state,
+        homeGuardado: {
+          ...state.homeGuardado,
+          pagina: action.payload,
+        },
+      };
+    case TRADE_OFFER:
+      return {
+        ...state,
+        trades: [...trades, action.payload],
+      };
+    case SEE_OFFER:
+      return {
+        ...state,
+        trades: action.payload,
+      };
+    case RESPONSE_OFFER:
+      return {
+        ...state,
+      };
+    case CANCEL_OFFER:
+      return {
+        ...state,
+      };
+    case NOTIFICATION_USER:
+      return {
+        ...state,
+        notification: action.payload,
+      };
+    case NOTIFICATION_USER_TRUE:
+      return {
+        ...state,
+      };
     default:
       return state;
   }

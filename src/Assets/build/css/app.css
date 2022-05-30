@@ -413,9 +413,11 @@ img {
 
 .contentNav {
   display: block;
+  overflow: hidden;
   width: 100%;
   margin: 0 auto;
   box-shadow: 0px 4px 4px 0px rgb(11, 12, 41);
+  z-index: 10;
   margin: 2rem auto;
 }
 @media (min-width: 768px) {
@@ -448,10 +450,39 @@ img {
   font-weight: 700;
   font-size: 3rem;
 }
-.contentNav .perfil img {
+.contentNav .perfil .image-click {
   display: inline-block;
   width: 50px;
   height: 50px;
+  background-size: cover;
+}
+@supports (object-fit: cover) {
+  .contentNav .perfil .image-click img {
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+  }
+}
+.contentNav .perfil .contBell {
+  position: relative;
+  width: 35px;
+}
+.contentNav .perfil .contBell:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+.contentNav .perfil .contBell .contBell-text {
+  position: absolute;
+  color: #e1e1e1;
+  top: -8px;
+  left: 19px;
+  font-size: 9px;
+}
+.contentNav .perfil .contBell .bell {
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  transition: 0.4s;
 }
 
 .logo {
@@ -545,6 +576,7 @@ img {
 }
 .buttonPrimary:hover {
   cursor: pointer;
+  background: #1f7929;
 }
 .buttonPrimary:hover {
   cursor: pointer;
@@ -560,93 +592,110 @@ img {
     margin: 0 auto;
   }
 }
-.contLogin {
-  position: relative;
-  width: 600px;
-  max-height: 700px;
-  background-color: #3a3a3a;
-  color: #e1e1e1;
-  border-radius: 0.5rem;
-  padding: 2rem;
+@media (min-width: 320px) {
+  .contLogin {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem;
+    max-height: fit-content;
+    background-color: #0b0c29;
+    color: #e1e1e1;
+    border-radius: 0.5rem;
+    padding: 1rem 0;
+  }
+  .contLogin .close {
+    position: absolute;
+    right: 10px;
+    top: 2px;
+    background: none;
+    color: #c53838;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+  }
+  .contLogin .close:hover {
+    cursor: pointer;
+    color: #e1e1e1;
+    background-color: #c53838;
+  }
+  .contLogin .contLogin-content {
+    width: 95%;
+    margin: 0 auto;
+  }
+  .contLogin .contLogin-content input {
+    font-family: "Ubuntu", sans-serif;
+    display: block;
+    margin: 1rem auto 2rem auto;
+    padding: 2rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    background-color: #e1e1e1;
+    outline: none;
+  }
+  .contLogin .contLogin-content select {
+    font-family: "Ubuntu", sans-serif;
+    display: block;
+    margin: 1rem auto 2rem auto;
+    padding: 2rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    background-color: #e1e1e1;
+    outline: none;
+  }
+  .contLogin .contLogin-content .file {
+    background-color: transparent;
+    padding: 0;
+  }
+  .contLogin .contLogin-content .buttonPrimary {
+    width: fit-content;
+    background-color: #29a237;
+    padding: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 0.5rem;
+    color: #e1e1e1;
+    font-weight: 700;
+    margin: 1rem 0;
+  }
+  .contLogin .contLogin-content .buttonPrimary:hover {
+    cursor: pointer;
+    background: #1f7929;
+  }
+  .contLogin .contLogin-content .buttonPrimary:hover {
+    cursor: pointer;
+  }
+  .contLogin .contLogin-content .buttonSecondary {
+    width: fit-content;
+    background-color: #e1e1e1;
+    padding: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 0.5rem;
+    color: #3a3a3a;
+    font-weight: 700;
+    margin: 1rem 0;
+  }
+  .contLogin .contLogin-content .buttonSecondary:hover {
+    cursor: pointer;
+    background: #c8c8c8;
+  }
+  .contLogin .contLogin-content .buttonSecondary:hover {
+    cursor: pointer;
+  }
 }
-.contLogin .close {
-  position: absolute;
-  right: 18px;
-  top: 10px;
-  background: none;
-  border: none;
-  padding: 1rem;
-  border-radius: 0.5rem;
+@media (min-width: 768px) {
+  .contLogin {
+    width: 600px;
+    max-height: 700px;
+    padding: 2rem;
+  }
+  .contLogin .contLogin-content {
+    width: 70%;
+  }
 }
-.contLogin .close:hover {
-  cursor: pointer;
-  background-color: #e1e1e1;
-}
-.contLogin .contLogin-content {
-  width: 70%;
-  margin: 0 auto;
-}
-.contLogin .contLogin-content input {
-  font-family: "Ubuntu", sans-serif;
-  display: block;
-  margin: 1rem auto 2rem auto;
-  padding: 2rem;
-  width: 100%;
-  border-radius: 0.5rem;
-  background-color: #e1e1e1;
-  outline: none;
-}
-.contLogin .contLogin-content select {
-  font-family: "Ubuntu", sans-serif;
-  display: block;
-  margin: 1rem auto 2rem auto;
-  padding: 2rem;
-  width: 100%;
-  border-radius: 0.5rem;
-  background-color: #e1e1e1;
-  outline: none;
-}
-.contLogin .contLogin-content .file {
-  background-color: transparent;
-  padding: 0;
-}
-.contLogin .contLogin-content .buttonPrimary {
-  width: fit-content;
-  background-color: #29a237;
-  padding: 1rem;
-  text-align: center;
-  text-transform: uppercase;
-  border: none;
-  border-radius: 0.5rem;
-  color: #e1e1e1;
-  font-weight: 700;
-  margin: 1rem 0;
-}
-.contLogin .contLogin-content .buttonPrimary:hover {
-  cursor: pointer;
-}
-.contLogin .contLogin-content .buttonPrimary:hover {
-  cursor: pointer;
-}
-.contLogin .contLogin-content .buttonSecondary {
-  width: fit-content;
-  background-color: #e1e1e1;
-  padding: 1rem;
-  text-align: center;
-  text-transform: uppercase;
-  border: none;
-  border-radius: 0.5rem;
-  color: #3a3a3a;
-  font-weight: 700;
-  margin: 1rem 0;
-}
-.contLogin .contLogin-content .buttonSecondary:hover {
-  cursor: pointer;
-}
-.contLogin .contLogin-content .buttonSecondary:hover {
-  cursor: pointer;
-}
-
 .error {
   color: #c53838;
 }
@@ -722,6 +771,96 @@ img {
   width: 90%;
   margin: 1rem auto;
 }
+.contentHome .contChat {
+  position: fixed;
+  background-color: #0b0c29;
+  width: 90%;
+  margin: 0 auto;
+  border-radius: 0.5rem;
+  border-top: solid 1px #e1e1e1;
+  border-left: solid 1px #e1e1e1;
+  border-right: solid 1px #e1e1e1;
+  bottom: 0;
+  right: 5px;
+}
+@media (min-width: 768px) {
+  .contentHome .contChat {
+    width: 400px;
+  }
+}
+
+/**CHAT*/
+.chat {
+  padding: 0 2rem;
+}
+.chat .chat-title {
+  background-color: none;
+  background: none;
+  border: none;
+  width: 100%;
+  padding: 2rem;
+  color: #e1e1e1;
+}
+.chat .chat-title:hover {
+  cursor: pointer;
+}
+.chat .contenidoChat {
+  background-color: #e1e1e1;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  max-height: 400px;
+  padding: 0 0.5rem;
+}
+.chat .contenidoChat .ulChat {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+.chat .contenidoChat .ulChat li:nth-child(odd) {
+  background-color: #bbbbbb;
+}
+.chat .contenidoChat .cadaMnesaje {
+  color: #0b0c29;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 1rem 0;
+  padding: 1rem;
+  width: 100%;
+  height: 100%;
+}
+.chat .contenidoChat .cadaMnesaje .span {
+  color: #29a237;
+  font-weight: 700;
+}
+.chat .contenidoChat .cadaMnesaje .otro {
+  color: #663a8f;
+}
+.chat .inputChat {
+  padding: 1rem;
+  width: 75%;
+  display: inline-block;
+}
+.chat .buttonChat {
+  width: fit-content;
+  background-color: #29a237;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem 0;
+  width: 20%;
+  margin: 0 0 0 1rem;
+  display: inline-block;
+  padding: 1rem;
+}
+.chat .buttonChat:hover {
+  cursor: pointer;
+  background: #1f7929;
+}
 
 .main {
   display: grid;
@@ -736,7 +875,7 @@ img {
   color: #e1e1e1;
 }
 
-.contNFT {
+.contNFT, .buyModal {
   position: relative;
   padding: 1rem;
   width: 280px;
@@ -746,12 +885,12 @@ img {
   margin: 0 auto;
   border-radius: 0.5rem;
 }
-.contNFT .venta {
+.contNFT .venta, .buyModal .venta {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 1px;
 }
-.contNFT .enVenta {
+.contNFT .enVenta, .buyModal .enVenta {
   width: 20px;
   height: 20px;
   border-radius: 100%;
@@ -760,13 +899,13 @@ img {
   display: inline-block;
   cursor: pointer;
 }
-.contNFT .verde {
+.contNFT .verde, .buyModal .verde {
   background-color: #29a237;
 }
-.contNFT .rojo {
+.contNFT .rojo, .buyModal .rojo {
   background-color: #c53838;
 }
-.contNFT .noVenta {
+.contNFT .noVenta, .buyModal .noVenta {
   width: 20px;
   height: 20px;
   border-radius: 100%;
@@ -775,62 +914,62 @@ img {
   display: inline-block;
   cursor: pointer;
 }
-.contNFT .textVenta {
+.contNFT .textVenta, .buyModal .textVenta {
   color: #e1e1e1;
   margin-right: 1rem;
 }
-.contNFT .contImg {
+.contNFT .contImg, .buyModal .contImg {
   position: relative;
   height: 260px;
   width: 100%;
   background-size: cover;
 }
 @supports (object-fit: cover) {
-  .contNFT .contImg img {
+  .contNFT .contImg img, .buyModal .contImg img {
     height: 100%;
     object-fit: cover;
     object-position: center center;
   }
 }
-.contNFT .contImg img {
+.contNFT .contImg img, .buyModal .contImg img {
   height: 100%;
 }
-.contNFT h2 {
+.contNFT h2, .buyModal h2 {
   color: #f28b12;
   font-size: 2.9rem;
   margin: 0;
 }
-.contNFT p {
+.contNFT p, .buyModal p {
   color: #e1e1e1;
   font-size: 2rem;
   line-height: 1.2;
   margin: 0;
 }
-.contNFT p span {
+.contNFT p span, .buyModal p span {
   color: #f28b12;
   font-size: 2.3rem;
   font-weight: bold;
 }
-.contNFT .contNFTinfo {
+.contNFT .contNFTinfo, .buyModal .contNFTinfo {
   width: 100%;
 }
-.contNFT .contNFTinfo .porcentajeMenos {
+.contNFT .contNFTinfo .porcentajeMenos, .buyModal .contNFTinfo .porcentajeMenos {
   color: #c53838;
   font-weight: bold;
 }
-.contNFT .contNFTinfo .porcentajeMas {
+.contNFT .contNFTinfo .porcentajeMas, .buyModal .contNFTinfo .porcentajeMas {
   color: #29a237;
   font-weight: bold;
 }
-.contNFT .contButtons {
+.contNFT .contButtons, .buyModal .contButtons {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
 }
-.contNFT .w-50 {
+.contNFT .w-50, .buyModal .w-50 {
   width: 50%;
 }
-.contNFT .buttonTrade {
+.contNFT .buttonTrade, .buyModal .buttonTrade {
   width: fit-content;
   background-color: #663a8f;
   padding: 1rem;
@@ -843,28 +982,29 @@ img {
   margin: 1rem 0;
   width: 50%;
 }
-.contNFT .buttonTrade:hover {
+.contNFT .buttonTrade:hover, .buyModal .buttonTrade:hover {
   cursor: pointer;
+  background: #4c2b6b;
 }
-.contNFT .buttonFav {
+.contNFT .buttonFav, .buyModal .buttonFav {
   width: 30px;
   position: absolute;
-  bottom: 200px;
+  bottom: 190px;
   left: 85%;
 }
-.contNFT .buttonFav:hover {
+.contNFT .buttonFav:hover, .buyModal .buttonFav:hover {
   cursor: pointer;
 }
-.contNFT .buttonlike {
+.contNFT .buttonlike, .buyModal .buttonlike {
   width: 30px;
   position: absolute;
   top: 4px;
   left: 5%;
 }
-.contNFT .buttonlike:hover {
+.contNFT .buttonlike:hover, .buyModal .buttonlike:hover {
   cursor: pointer;
 }
-.contNFT .contLike {
+.contNFT .contLike, .buyModal .contLike {
   height: 35px;
   width: 98%;
   position: absolute;
@@ -873,13 +1013,13 @@ img {
   background-color: #3a3a3a;
   opacity: 0.8;
 }
-.contNFT .cantlike {
+.contNFT .cantlike, .buyModal .cantlike {
   width: 30px;
   position: absolute;
   top: 10px;
   left: 17%;
 }
-.contNFT .cantlike:hover {
+.contNFT .cantlike:hover, .buyModal .cantlike:hover {
   cursor: pointer;
 }
 
@@ -928,6 +1068,57 @@ img {
 .heigth {
   height: 100%;
   background: none;
+}
+
+.buyModal {
+  width: 100%;
+  background-color: #1d1e3e;
+}
+.buyModal h1 {
+  color: #f28b12;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: bold;
+}
+.buyModal p {
+  color: #f28b12;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: bold;
+}
+
+.noButton {
+  width: fit-content;
+  background-color: #c53838;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem auto;
+  margin: 1rem;
+}
+.noButton:hover {
+  cursor: pointer;
+  background: #621c1c;
+}
+
+.closeButton {
+  width: fit-content;
+  background-color: #c53838;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem auto;
+  margin: 0;
+}
+.closeButton:hover {
+  cursor: pointer;
+  background: #621c1c;
 }
 
 @media (min-width: 320px) {
@@ -995,6 +1186,9 @@ img {
   grid-column: 1/3;
   margin: 0;
   color: #3a3a3a;
+}
+.divPortfolio:hover {
+  background-color: #c5c5c5;
 }
 
 .icon {
@@ -1102,6 +1296,7 @@ img {
 }
 .portfolioCreateNft:hover {
   cursor: pointer;
+  background: #1f7929;
 }
 @media (min-width: 768px) {
   .portfolioCreateNft {
@@ -1126,6 +1321,7 @@ img {
 }
 .portfolioCreateColection:hover {
   cursor: pointer;
+  background: #c6700b;
 }
 @media (min-width: 768px) {
   .portfolioCreateColection {
@@ -1150,6 +1346,7 @@ img {
 }
 .portfolioFavoritos:hover {
   cursor: pointer;
+  background: #4c2b6b;
 }
 @media (min-width: 768px) {
   .portfolioFavoritos {
@@ -1175,6 +1372,7 @@ img {
 }
 .buttonOrange:hover {
   cursor: pointer;
+  background: #c6700b;
 }
 
 .buttonMorado {
@@ -1191,22 +1389,62 @@ img {
 }
 .buttonMorado:hover {
   cursor: pointer;
+  background: #4c2b6b;
 }
 
-.wallet-panel {
-  width: 30%;
-  border-radius: 0.5rem;
-  border: solid 1px #f28b12;
-  margin: 1rem auto;
+.contLogin .contInput {
+  width: 100%;
+  margin: 0 auto;
+}
+.contLogin .contInput input {
+  margin: 2rem auto;
+}
+.contLogin .contButonColection {
+  width: 90%;
+  margin: 0 auto;
+}
+.contLogin .contButonColection .buttonColection {
+  width: fit-content;
+  background-color: #29a237;
+  padding: 1rem;
   text-align: center;
-  height: fit-content;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem 0;
+  width: 100%;
+}
+.contLogin .contButonColection .buttonColection:hover {
+  cursor: pointer;
+  background: #1f7929;
 }
 
+@media (min-width: 320px) {
+  .wallet-panel {
+    width: 30%;
+    border-radius: 0.5rem;
+    border: solid 1px #f28b12;
+    margin: 1rem auto;
+    text-align: center;
+    height: fit-content;
+    width: 80%;
+    padding: 2rem 0;
+  }
+}
+@media (min-width: 768px) {
+  .wallet-panel {
+    width: 30%;
+    width: fit-content;
+  }
+}
 .contNFTWallet {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1fr;
   align-items: center;
+  width: fit-content;
   align-items: center;
   text-align: left;
   width: 90%;
@@ -1220,13 +1458,21 @@ img {
   margin: 0;
 }
 
-.ContenedorGeneralWallet {
-  display: flex;
-  flex-direction: row;
-  width: 90%;
-  margin: 0 auto;
+@media (min-width: 320px) {
+  .ContenedorGeneralWallet {
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+  }
 }
-
+@media (min-width: 768px) {
+  .ContenedorGeneralWallet {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    margin: 0 auto;
+  }
+}
 .ContenedorCardsWallet {
   width: 90%;
   margin: 0 auto;
@@ -1264,20 +1510,74 @@ img {
   color: #e1e1e1;
 }
 
-.InpcutLogo {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+.subtitulo {
+  color: #e1e1e1;
+  text-align: center;
+  margin: 2rem auto;
 }
 
-.contInput {
-  width: 50%;
-  display: inline-block;
-}
-.contInput .dinner {
-  padding: 1rem;
-}
+@media (min-width: 320px) {
+  .InpcutLogo {
+    display: block;
+  }
 
+  .contInput {
+    width: 90%;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .buttonMP {
+    width: fit-content;
+    background-color: #663a8f;
+    padding: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 0.5rem;
+    color: #e1e1e1;
+    font-weight: 700;
+    margin: 1rem auto;
+    margin: 0 auto 0 1rem;
+    width: 90%;
+  }
+  .buttonMP:hover {
+    cursor: pointer;
+    background: #4c2b6b;
+  }
+}
+@media (min-width: 768px) {
+  .InpcutLogo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .contInput {
+    width: 50%;
+    display: inline-block;
+  }
+  .contInput .dinner {
+    padding: 1rem;
+  }
+
+  .buttonMP {
+    width: fit-content;
+    background-color: #663a8f;
+    padding: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 0.5rem;
+    color: #e1e1e1;
+    font-weight: 700;
+    margin: 1rem auto;
+  }
+  .buttonMP:hover {
+    cursor: pointer;
+    background: #4c2b6b;
+  }
+}
 .contLogoMP {
   width: 30%;
   margin: 0 auto;
@@ -1300,27 +1600,36 @@ img {
   width: 50%;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
 }
 .paginacion:hover {
   cursor: pointer;
 }
 .paginacion button {
-  padding: 1rem;
-  margin: 0 auto;
+  padding: 0.5rem;
+  margin: 0;
   border: none;
-  background-color: #f28b12;
+  background-color: #0b0c29;
   border-radius: 0.5rem;
   color: #e1e1e1;
   font-weight: bold;
 }
-.paginacion button::hover {
+.paginacion button:hover {
   cursor: pointer;
+  background: #965508;
 }
 .paginacion .buttonCentro {
-  padding: 2 rem;
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   border: solid 1px #e1e1e1;
+  background-color: #c6700b;
+}
+.paginacion .icon {
+  transition: 0.3s;
+  height: 45px;
+}
+.paginacion .icon:hover {
+  stroke: #965508;
 }
 
 .contFavoritos {
@@ -1328,35 +1637,107 @@ img {
   width: 90%;
 }
 
-.second-grid {
-  grid-column-start: 2;
-  grid-column-end: 2;
+.iconFav {
+  width: 25px;
+  height: 25px;
+  stroke-width: 2.5px;
 }
 
-.contNFTWallet h2 {
-  color: #f28b12;
-  font-size: 2.9rem;
-  margin: 0;
+@media (min-width: 320px) {
+  .contNFTWallet {
+    display: block;
+  }
+  .contNFTWallet .imgFav {
+    width: 100%;
+  }
+  .contNFTWallet .btn-group {
+    display: flex;
+    width: 80%;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 auto;
+  }
 }
-.contNFTWallet p {
+@media (min-width: 768px) {
+  .contNFTWallet {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1fr;
+    align-items: center;
+    gap: 2rem;
+    width: fit-content;
+  }
+  .contNFTWallet h2 {
+    color: #f28b12;
+    font-size: 2.9rem;
+    margin: 0;
+  }
+  .contNFTWallet p {
+    color: #e1e1e1;
+    font-size: 2rem;
+  }
+  .contNFTWallet span {
+    color: #f28b12;
+    font-size: 2.3rem;
+    font-weight: bold;
+  }
+  .contNFTWallet .imgFav {
+    height: 250px;
+    width: 350px;
+  }
+  @supports (object-fit: cover) {
+    .contNFTWallet .imgFav img {
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
+  }
+
+  .btn-group {
+    display: flex;
+    width: 100px;
+    border-radius: 0.5rem;
+    gap: 1rem;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}
+.buy-button {
+  margin: 0;
+  width: fit-content;
+  background-color: #29a237;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
   color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem 0;
   font-size: 2rem;
 }
-.contNFTWallet span {
-  color: #f28b12;
-  font-size: 2.3rem;
-  font-weight: bold;
+.buy-button:hover {
+  cursor: pointer;
+  background: #1f7929;
 }
-.contNFTWallet .imgFav {
-  height: 250px;
-  width: 250px;
+
+.delete-button {
+  width: fit-content;
+  background-color: #c53838;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem auto;
+  font-size: 2rem;
+  margin: 0;
 }
-@supports (object-fit: cover) {
-  .contNFTWallet .imgFav img {
-    height: 100%;
-    object-fit: cover;
-    object-position: center center;
-  }
+.delete-button:hover {
+  cursor: pointer;
+  background: #621c1c;
 }
 
 .last-grid {
@@ -1375,6 +1756,7 @@ img {
 }
 .last-grid:hover {
   cursor: pointer;
+  background: #1f7929;
 }
 
 .third-grid {
@@ -1388,49 +1770,9 @@ img {
   grid-column-end: 1;
 }
 
-.btn-group {
-  display: flex;
-  width: 100%;
-  border-radius: 0.5rem;
-  gap: 2rem;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.buy-button {
+.second-grid {
+  color: #f28b12;
   margin: 0;
-  width: fit-content;
-  background-color: #29a237;
-  padding: 1rem;
-  text-align: center;
-  text-transform: uppercase;
-  border: none;
-  border-radius: 0.5rem;
-  color: #e1e1e1;
-  font-weight: 700;
-  margin: 1rem 0;
-  font-size: 2rem;
-}
-.buy-button:hover {
-  cursor: pointer;
-}
-
-.delete-button {
-  margin: 0;
-  width: fit-content;
-  background-color: #c53838;
-  padding: 1rem;
-  text-align: center;
-  text-transform: uppercase;
-  border: none;
-  border-radius: 0.5rem;
-  color: #e1e1e1;
-  font-weight: 700;
-  margin: 1rem auto;
-  font-size: 2rem;
-}
-.delete-button:hover {
-  cursor: pointer;
 }
 
 .back-button {
@@ -1448,6 +1790,7 @@ img {
 }
 .back-button:hover {
   cursor: pointer;
+  background: #4c2b6b;
 }
 
 .disabled {
@@ -1467,9 +1810,28 @@ img {
 }
 .disabled:hover {
   cursor: pointer;
+  background: #4c2b6b;
 }
 .disabled:hover {
   cursor: not-allowed;
+}
+
+.disableCreate {
+  width: fit-content;
+  background-color: #29a237;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem 0;
+  opacity: 0.5;
+}
+.disableCreate:hover {
+  cursor: pointer;
+  background: #1f7929;
 }
 
 .contentTopPortfolios {
@@ -1484,7 +1846,7 @@ img {
   color: #e1e1e1;
 }
 .contentTopPortfolios .contentTopPortfolios--contendio {
-  background-color: rgba(11, 12, 41, 0.5607843137);
+  background-color: #0b0c29;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -1550,10 +1912,28 @@ img {
 }
 .contSettings-info button:hover {
   cursor: pointer;
+  background: #4c2b6b;
 }
-.contSettings-info .contFile {
+.contSettings-info .contProfile {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+}
+.contSettings-info .contProfile img {
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+.contSettings-info .contProfile .contFile {
+  position: absolute;
+  right: 0;
+  bottom: 0rem;
   text-align: center;
   color: #e1e1e1;
+}
+.contSettings-info .contProfile .contFile label {
+  margin: 0;
 }
 .contSettings-info #mifile {
   display: none;
@@ -1564,7 +1944,7 @@ img {
   font-size: 14px;
   font-weight: bold;
   color: #e1e1e1;
-  background-color: rgba(11, 12, 41, 0.5607843137);
+  background-color: #0b0c29;
   transition: all 0.5s;
   cursor: pointer;
   padding: 15px 40px !important;
@@ -1572,4 +1952,278 @@ img {
   width: fit-content;
   text-align: center;
   display: block;
+}
+
+@media (min-width: 768px) {
+  .contSettings-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1fr;
+    align-items: center;
+  }
+}
+.contenedorCard {
+  max-width: 800px;
+  margin: 6rem auto;
+  padding: 2rem 0;
+}
+.contenedorCard .buttonAccept {
+  width: fit-content;
+  background-color: #29a237;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem 0;
+  margin: 0 auto;
+}
+.contenedorCard .buttonAccept:hover {
+  cursor: pointer;
+  background: #1f7929;
+}
+.contenedorCard .buttonReject {
+  width: fit-content;
+  background-color: #663a8f;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem auto;
+  margin: 2rem auto;
+}
+.contenedorCard .buttonReject:hover {
+  cursor: pointer;
+  background: #4c2b6b;
+}
+@media (min-width: 768px) {
+  .contenedorCard .contTrades {
+    width: 90%;
+    margin: 2rem auto;
+    background-color: #0b0c29;
+    padding: 2rem 0;
+    border-radius: 0.5rem;
+  }
+  .contenedorCard .contTrades h3 {
+    margin: 1rem auto;
+    text-align: center;
+    color: #e1e1e1;
+  }
+  .contenedorCard .contTrades .contTrades-cards {
+    margin: 2rem auto;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    align-items: center;
+  }
+  .contenedorCard .contTrades .contTrades-cards .contTrades-flechas {
+    display: flex;
+    flex-direction: column;
+  }
+}
+.contenedorCard .contButtonTrade {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+.contenedorCard .contButtonTrade .buttonRojos {
+  width: fit-content;
+  background-color: #c53838;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem auto;
+  margin: 0;
+}
+.contenedorCard .contButtonTrade .buttonRojos:hover {
+  cursor: pointer;
+  background: #621c1c;
+}
+
+@media (min-width: 320px) {
+  .modalBuy {
+    width: 90%;
+    margin: 12rem auto;
+    height: 70vh;
+  }
+  .modalBuy .buyModal {
+    margin: 0 auto;
+  }
+  .modalBuy .subtituloBuy {
+    color: #e1e1e1;
+  }
+}
+@media (min-width: 768px) {
+  .modalBuy {
+    width: 400px;
+    margin: 2rem auto;
+  }
+}
+@media (min-width: 320px) {
+  .modalTrade {
+    width: 95%;
+    margin: 1rem auto;
+    background-color: #0b0c29;
+    padding: 1rem;
+    height: fit-content;
+    border: solid 1px #f28b12;
+    position: relative;
+    border-radius: 0.5rem;
+  }
+  .modalTrade .contenedorCardTrade {
+    display: block;
+    border: none;
+    padding: 0;
+    margin: 1rem auto;
+  }
+  .modalTrade .subtituloTrade {
+    color: #e1e1e1;
+    margin: 1rem;
+  }
+  .modalTrade .close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #c53838;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    color: #e1e1e1;
+  }
+}
+@media (min-width: 768px) {
+  .contenedorCardTrade {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1fr;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem 0;
+  }
+  .contenedorCardTrade .swiper {
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+.buttonTrade1 {
+  width: fit-content;
+  background-color: #29a237;
+  padding: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.5rem;
+  color: #e1e1e1;
+  font-weight: 700;
+  margin: 1rem 0;
+  margin: 1rem auto;
+  display: flex;
+}
+.buttonTrade1:hover {
+  cursor: pointer;
+  background: #1f7929;
+}
+
+.displayNone {
+  display: none;
+}
+
+.displayBlock {
+  display: block;
+}
+
+#contNotification {
+  z-index: 1000;
+  margin: 0 auto;
+}
+#contNotification ul {
+  padding: 0;
+}
+#contNotification .notification {
+  background-color: #0b0c29;
+  padding: 1rem;
+  margin: 1rem auto;
+  list-style: none;
+  color: #e1e1e1;
+}
+#contNotification .notification:hover {
+  cursor: pointer;
+}
+#contNotification .notiFalse {
+  background-color: #0b0c29;
+  padding: 1rem;
+  margin: 1rem auto;
+  list-style: none;
+  color: #f28b12;
+}
+#contNotification .notiFalse:hover {
+  cursor: pointer;
+}
+#contNotification .viewAll {
+  margin: 0 auto;
+  transition: 0.5s;
+  width: fit-content;
+}
+#contNotification .viewAll a {
+  color: #f28b12;
+  text-align: center;
+}
+#contNotification .viewAll a:hover {
+  color: #e1e1e1;
+}
+
+@media (min-width: 768px) {
+  #contNotification {
+    position: absolute;
+    background-color: #1d1e3e;
+    border: solid 1px #e1e1e1;
+    border-radius: 0.5rem;
+    width: 250px;
+    padding: 1rem;
+    top: 12%;
+    right: 12%;
+  }
+}
+@media (min-width: 1200px) {
+  #contNotification {
+    right: 12%;
+    top: 10%;
+  }
+}
+@media (min-width: 320px) {
+  .customStylesNotification {
+    z-index: 5;
+    position: absolute;
+    top: 10rem;
+    left: 0;
+    width: 300px;
+    padding: 0.5rem;
+    background-color: #1d1e3e;
+    color: #e1e1e1;
+    border-radius: 0.5rem;
+  }
+}
+@media (min-width: 570px) {
+  .customStylesNotification {
+    top: 32rem;
+    left: 70%;
+    width: 300px;
+  }
+}
+@media (min-width: 768px) {
+  .customStylesNotification {
+    top: 30rem;
+    left: 81%;
+    width: 300px;
+  }
 }
