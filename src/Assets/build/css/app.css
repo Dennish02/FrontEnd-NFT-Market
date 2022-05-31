@@ -1121,6 +1121,22 @@ img {
   background: #621c1c;
 }
 
+.scrollButton {
+  position: fixed;
+  bottom: 61px;
+  left: 40px;
+  z-index: 20;
+  color: #f28b12;
+  width: 40px;
+  height: 30px;
+  cursor: pointer;
+  border: solid;
+  border-radius: 4rem;
+}
+.scrollButton:hover {
+  color: #e1e1e1;
+}
+
 @media (min-width: 320px) {
   .customStyles {
     position: absolute;
@@ -2132,6 +2148,19 @@ img {
 .buttonTrade1:hover {
   cursor: pointer;
   background: #1f7929;
+}
+
+.center {
+  text-align: center;
+}
+
+.noDisponible {
+  color: #e1e1e1;
+}
+
+.MensajeVacios {
+  text-align: center;
+  color: #e1e1e1;
 }
 
 .displayNone {

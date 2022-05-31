@@ -5,20 +5,29 @@ import { crearNFT, reset } from "../../redux/actions/actionNFT";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { coleccionesUsuario } from "../../redux/actions/actionColeccion";
-import { toast } from "react-toastify";
 
 function validate(value) {
   let errores = {};
-  !value.colection ? (errores.colection = "required field") : "";
-  !value.category ? (errores.category = "required field") : "";
+  const formatos = ["png", "jpg", "webp", "gif"];
+  !value.colection ? (errores.colection = "Required field") : "";
+  !value.category ? (errores.category = "Required field") : "";
   !value.price
-    ? (errores.price = "required field")
-    : !Number(value.price)
-    ? (errores.price = "must be a number")
-    : "";
-  !value.image ? (errores.image = "required field") : "";
+    ? (errores.price = "Required field")
+    : !Number(value.price) && Number(value.price) !== 0
+    ? (errores.price = "Must be a number")
+    : Number(value.price) < 1
+    ? (errores.price = "The NFT's price must be greater than 0CL")
+    : null;
+  !value.image
+    ? (errores.image = "Required field")
+    : !formatos.includes(
+        value.image.name.split(".")[value.image.name.split(".").length - 1]
+      )
+    ? (errores.image = "Invalid image format (jpg, png, webp or gif)")
+    : null;
   return errores;
 }
+
 export default function CrearNFT() {
   const token = localStorage.getItem("token");
   const dispatch = useDispatch();
@@ -95,7 +104,6 @@ export default function CrearNFT() {
                     </p>
                   </div>
                 )}
-
                 <label>Category</label>
                 <Field name="category" as="select">
                   <option value="" disabled>
@@ -111,21 +119,23 @@ export default function CrearNFT() {
                 <p className="error">
                   <ErrorMessage name="category" />
                 </p>
-
                 <label>Price</label>
                 <Field name="price" type="text" />
                 <p className="error">
                   <ErrorMessage name="price" />
                 </p>
-
                 <label>image</label>
-                <input
+                <Field
                   type="file"
                   name="image"
                   className="file"
-                  accept="image/*"
+                  value=""
                   onChange={(e) => setFieldValue("image", e.target.files[0])}
                 />
+                {/* {imageError ? <p className="error">{imageError}</p> : null} */}
+                <p className="error">
+                  <ErrorMessage name="image" />
+                </p>
                 {validate2 > 0 ? (
                   <button disabled type="submit" className="disableCreate">
                     loading

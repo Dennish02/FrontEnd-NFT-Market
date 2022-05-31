@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  allNftMarket,
-  allNFTUser,
-  userNfts,
-} from "../../redux/actions/actionNFT";
+import { allNftMarket, allNFTUser } from "../../redux/actions/actionNFT";
 import ComponentNFT from "../componentes/home/ComponentNFT";
 import NavBar from "../componentes/home/NavBar";
 import SearchBar from "../componentes/home/SearchBar";
-
 import io from "socket.io-client";
 import TopPortfolios from "../componentes/home/TopPortfolios";
 import Paginado from "./Paginas";
@@ -19,8 +14,10 @@ import {
   usuarioActual,
 } from "../../redux/actions/actionUSER";
 let socket;
-import { guardarPagina } from "../../redux/actions/actionPaginado";
 import NotificationModal from "../componentes/home/NotificationModal";
+
+import {AiOutlineArrowUp} from 'react-icons/ai'
+
 import Chat from "../componentes/home/Chat";
 
 export default function Home() {
@@ -28,12 +25,9 @@ export default function Home() {
   const todosLosNFT = useSelector((state) => state.allNft);
   const usuario = useSelector((state) => state.usuario);
   const usuarioAct = useSelector((state) => state.usuarioActual);
-  const nftUser = useSelector((state) => state.nftUser);
   const params = window.location.href;
   const ranking = useSelector((state) => state.ranking);
-  //const token = localStorage.getItem("token");
 
-  // const [orden, setOrden] = useState('')
   const [selectedSort, setSelectedSort] = useState("sort");
   const [orderPop, setOrderPop] = useState("");
 
@@ -47,7 +41,6 @@ export default function Home() {
   );
   let currentNftFilter = currentNft.slice(indexOfFirstNft, indexOfLastNft);
   const [screen, setScreen] = useState(window.innerWidth);
-  const  mensajes = document.querySelector('#ulChat')  
   const paginas = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -60,7 +53,6 @@ export default function Home() {
     }
   };
   useEffect(() => {
-   
     dispatch(usuarioActual());
     dispatch(topPortfolios());
     function handleResize() {
@@ -76,11 +68,13 @@ export default function Home() {
     };
   }, []);
 
+
+  
+
   useEffect(() => {
     dispatch(usuarioActual());
   }, [todosLosNFT]);
 
-  const test = todosLosNFT.map((el) => el.ranking);
 
   useEffect(() => {
     //recibir la respuesta del back
@@ -92,11 +86,20 @@ export default function Home() {
       dispatch(getValuePortfolio());
       dispatch(searchNotification());
     });
-  }, []);
+
+  },[]);
+  function scrollUp(){
+    window.scrollTo({
+      top:0,
+      behavior: 'smooth'
+    })
+  }
 
   if (!usuarioAct) "Loading";
+
   return (
     <div className="contentHome">
+      
       <NavBar usuario={usuarioAct} />
       <NotificationModal usuario={usuarioAct} />
       <div>
@@ -104,7 +107,6 @@ export default function Home() {
           selectedSort={selectedSort}
           setSelectedSort={setSelectedSort}
           paginas={paginas}
-          OrderPop={setOrderPop}
         />
       </div>
       <Paginado
@@ -145,21 +147,27 @@ export default function Home() {
           })
         ) : (
           <div>
-            <h3 className="textGray">There aren't NFTs on sale</h3>
+            <h3 className="MensajeVacios">There aren't NFTs on sale</h3>
           </div>
         )}
       </main>
 
+      <AiOutlineArrowUp onClick={() => scrollUp()} className = 'scrollButton'/> 
+
       {usuario ? (
         <TopPortfolios ranking={ranking} screen={screen} usuario={usuario} />
       ) : (
+        
         <p>Aweit</p>
+        
       )}
-{socket ? 
-
-   <div className="contChat">
-     <Chat usuario={usuario} socket={socket}/>
-   </div> : ''}
+      {socket ? (
+        <div className="contChat">
+          <Chat usuario={usuario} socket={socket} />
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

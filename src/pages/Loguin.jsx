@@ -154,7 +154,7 @@ export default function Loguin() {
               </button>
             </form>
             <GoogleOAuthProvider
-              clientId={'191662824366-t2ai2ljblpt0nrbaet49vudt5vbiemgf.apps.googleusercontent.com'}
+              clientId='191662824366-t2ai2ljblpt0nrbaet49vudt5vbiemgf.apps.googleusercontent.com'
             >
               <GoogleLogin login_uri="" onSuccess={responseGoogle} />
             </GoogleOAuthProvider>
