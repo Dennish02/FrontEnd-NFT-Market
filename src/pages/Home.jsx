@@ -79,6 +79,9 @@ export default function Home() {
       dispatch(topPortfolios());
       dispatch(getValuePortfolio());
       dispatch(searchNotification());
+      return ()=>{
+        socket.of()
+      }
     });
 
 
