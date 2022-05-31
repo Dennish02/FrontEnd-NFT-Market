@@ -15,9 +15,7 @@ import {
 } from "../../redux/actions/actionUSER";
 let socket;
 import NotificationModal from "../componentes/home/NotificationModal";
-
-import {AiOutlineArrowUp} from 'react-icons/ai'
-
+import { AiOutlineArrowUp } from "react-icons/ai";
 import Chat from "../componentes/home/Chat";
 
 export default function Home() {
@@ -68,13 +66,9 @@ export default function Home() {
     };
   }, []);
 
-
-  
-
   useEffect(() => {
     dispatch(usuarioActual());
   }, [todosLosNFT]);
-
 
   useEffect(() => {
     //recibir la respuesta del back
@@ -86,6 +80,7 @@ export default function Home() {
       dispatch(getValuePortfolio());
       dispatch(searchNotification());
     });
+<<<<<<< HEAD
 
   },[]);
   function scrollUp(){
@@ -93,13 +88,20 @@ export default function Home() {
       top:0,
       behavior: 'smooth'
     })
+=======
+  }, []);
+  function scrollUp() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+>>>>>>> 25c54b1bb49b2c2ec35eacac79bc84646f71adc7
   }
 
   if (!usuarioAct) "Loading";
 
   return (
     <div className="contentHome">
-      
       <NavBar usuario={usuarioAct} />
       <NotificationModal usuario={usuarioAct} />
       <div>
@@ -152,14 +154,12 @@ export default function Home() {
         )}
       </main>
 
-      <AiOutlineArrowUp onClick={() => scrollUp()} className = 'scrollButton'/> 
+      <AiOutlineArrowUp onClick={() => scrollUp()} className="scrollButton" />
 
       {usuario ? (
         <TopPortfolios ranking={ranking} screen={screen} usuario={usuario} />
       ) : (
-        
         <p>Aweit</p>
-        
       )}
       {socket ? (
         <div className="contChat">

@@ -50,6 +50,7 @@ export function allNftMarket(vriable) {
     }
   };
 }
+
 export function allNFTUser() {
   return async function (dispatch) {
     const token = localStorage.getItem("token");
@@ -309,7 +310,7 @@ export function eliminarFav(id) {
       const nft = await authAxios.get(
         `${import.meta.env.VITE_BACKEND_URL}/api/nft/select/${id}`
       );
-      socket.emit('Render')
+      socket.emit("Render");
       toast.success(json.data.msg);
       return dispatch({
         type: LIKE_FAVORITE,
@@ -509,6 +510,16 @@ export function cancelOffer({ id }) {
     }
   };
 }
+<<<<<<< HEAD
+=======
+
+}
+
+
+export function deleteOffer ( id ){
+
+
+>>>>>>> 25c54b1bb49b2c2ec35eacac79bc84646f71adc7
 export function deleteOffer(id) {
   return async function (dispatch) {
     const token = localStorage.getItem("token");
@@ -534,5 +545,11 @@ export function deleteOffer(id) {
     } catch (error) {
       toast.error(error);
     }
+
+  }
+} 
+
+
   };
 }
+
