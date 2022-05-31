@@ -866,9 +866,8 @@ img {
 .main {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1fr;
-  align-items: center;
   gap: 2rem;
+  align-items: center;
   width: 90%;
   margin: 5rem auto;
 }

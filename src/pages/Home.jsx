@@ -80,22 +80,15 @@ export default function Home() {
       dispatch(getValuePortfolio());
       dispatch(searchNotification());
     });
-<<<<<<< HEAD
+
 
   },[]);
-  function scrollUp(){
-    window.scrollTo({
-      top:0,
-      behavior: 'smooth'
-    })
-=======
-  }, []);
   function scrollUp() {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
->>>>>>> 25c54b1bb49b2c2ec35eacac79bc84646f71adc7
+
   }
 
   if (!usuarioAct) "Loading";

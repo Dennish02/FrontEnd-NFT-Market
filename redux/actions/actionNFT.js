@@ -25,7 +25,7 @@ import io from "socket.io-client";
 let socket;
 socket = io(import.meta.env.VITE_BACKEND_URL);
 
-export function allNftMarket(vriable) {
+export function allNftMarket() {
   return async function (dispatch) {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -510,16 +510,7 @@ export function cancelOffer({ id }) {
     }
   };
 }
-<<<<<<< HEAD
-=======
 
-}
-
-
-export function deleteOffer ( id ){
-
-
->>>>>>> 25c54b1bb49b2c2ec35eacac79bc84646f71adc7
 export function deleteOffer(id) {
   return async function (dispatch) {
     const token = localStorage.getItem("token");
@@ -548,8 +539,3 @@ export function deleteOffer(id) {
 
   }
 } 
-
-
-  };
-}
-
