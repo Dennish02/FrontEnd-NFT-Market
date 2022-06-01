@@ -29,7 +29,7 @@ const customStyles = {
 };
 
 let socket;
-//hola
+
 function Wallet() {
   const dispatch = useDispatch();
   const usuario = useSelector((state) => state.usuarioActual);
