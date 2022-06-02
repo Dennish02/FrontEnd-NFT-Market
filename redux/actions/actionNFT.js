@@ -17,6 +17,9 @@ import {
   CANCEL_OFFER,
   DELETE_OFFER,
   LIKE_FAVORITE,
+  CAMBIAR_VENTA,
+  FILTER_CATEGORY
+
 } from "../constantes/index";
 
 import { toast } from "react-toastify";
@@ -168,7 +171,7 @@ export function comprarNFT(payload) {
 
 export function venta(payload) {
   const { _id, avaliable, id } = payload;
-  return async function () {
+  return async function (dispatch) {
     const token = localStorage.getItem("token");
     const config = {
       headers: {
@@ -182,26 +185,30 @@ export function venta(payload) {
       //alert
       avaliable
         ? toast.info(`Your NFT is no longer for sale ${id} `, {
-            position: "top-center",
-            autoClose: 2500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
+          position: "top-center",
+          autoClose: 2500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        })
         : toast.info(`You put your ntf for sale ${id}`, {
-            position: "top-center",
-            autoClose: 2500,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+          position: "top-center",
+          autoClose: 2500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       //socket.io
-      socket.emit("Render");
-      socket.emit("update");
+      // socket.emit("Render");
+      // socket.emit("update");
+      return dispatch({
+        type: CAMBIAR_VENTA,
+        payload: _id,
+      });
     } catch (e) {
       toast.error(e.response.data.msg);
     }
@@ -536,6 +543,30 @@ export function deleteOffer(id) {
     } catch (error) {
       toast.error(error);
     }
+  };
+}
+
+export function filterNftCategory(payload) {
+
+  return async function (dispatch) {
+    const token = localStorage.getItem("token");
+    const authAxios = clienteAxios.create({
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    try {
+      const json = await authAxios.get(
+        `${import.meta.env.VITE_BACKEND_URL}/api/nft/filter/${payload}` );
+        return dispatch({
+          type: FILTER_CATEGORY,
+          payload: json.data
+        });
+        
+    } catch (error) {
+      toast.error(error);
+    }
 
   }
-} 
+}
