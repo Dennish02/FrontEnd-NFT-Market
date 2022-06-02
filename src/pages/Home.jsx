@@ -69,7 +69,6 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(usuarioActual());
-    paginas(1)
   }, [todosLosNFT]);
 
   useEffect(() => {
