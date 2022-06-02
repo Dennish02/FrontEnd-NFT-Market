@@ -29,9 +29,9 @@ export default function SearchBar({
 
   function filterByCategory(e){
    dispatch(filterNftCategory(e.target.value))
-   setTimeout(()=>{
-     paginas(1)
-   },700)  
+  //  setTimeout(()=>{
+    
+  //  },600)  
   }
 
   return (
