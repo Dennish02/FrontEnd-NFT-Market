@@ -158,11 +158,11 @@ export function comprarNFT(payload) {
         {},
         config
       );
-
-      //socket.io
-      toast.success(`You bought this NFT: ${nft.data.NFT_id}`);
       socket.emit('Render');
       socket.emit("renderHome");
+      //socket.io
+      toast.success(`You bought this NFT: ${nft.data.NFT_id}`);
+     
     } catch (error) {
       toast.error(error.response.data.msg);
     }
