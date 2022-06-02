@@ -31,7 +31,7 @@ export default function SearchBar({
    dispatch(filterNftCategory(e.target.value))
    setTimeout(()=>{
      paginas(1)
-   }, 2500)  
+   },1000)  
   }
 
   return (
