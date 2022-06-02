@@ -51,8 +51,9 @@ function Trades() {
     dispatch(deleteOffer({ id: e }));
   };
 
-  if (!usuarioAct) "cargando";
+
   return (
+    usuarioAct.length !== 0 ?
     <div>
       <NavBar usuario={usuarioAct} />
       <NotificationModal usuario={usuarioAct} />
@@ -172,7 +173,7 @@ function Trades() {
           </div>
         )}
       </div>
-    </div>
+    </div> : <p className="MensajeVacios">Loading</p>
   );
 }
 

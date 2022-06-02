@@ -42,6 +42,7 @@ export default function Portfolio() {
   }, [nftUser]);
 
   return (
+    usuarioAct.length !== 0 ?
     <div className="contentHome">
       <NavBar usuario={usuarioAct} />
       <NotificationModal usuario={usuarioAct} />
@@ -70,6 +71,6 @@ export default function Portfolio() {
           <h3 className="MensajeVacios">There aren't NFTs</h3>
         )}
       </div>
-    </div>
+    </div> : <p className="MensajeVacios">Loading</p>
   );
 }
