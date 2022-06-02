@@ -30,7 +30,7 @@ function handleNone(){
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (mensaje === "") return null;
+    if (mensaje === "" || mensaje.trim().length === 0) return null;
     if (mensaje.length > 200) return null;
     const palabras = mensaje
       .split(" ")
