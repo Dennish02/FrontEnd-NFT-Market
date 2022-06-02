@@ -20,6 +20,7 @@ function Settings() {
   }, []);
 
   useEffect(() => {
+    dispatch(usuarioActual());
     //recibir la respuesta del back
     socket.on("nftUser2", () => {
       dispatch(usuarioActual());
@@ -31,6 +32,7 @@ function Settings() {
     dispatch(cambiarImagen(image));
   }
   return (
+    usuarioAct.length !== 0 ? 
     <div className="contSettings">
       {usuarioAct ?  <NavBar usuario={usuarioAct} /> : null}
      
@@ -38,7 +40,7 @@ function Settings() {
       <div className="contSettings-info">
         <div className="contProfile">
           <img
-            src={usuarioAct.image.url ? usuarioAct.image.url : profile}
+            src={usuarioAct?.image.url ? usuarioAct?.image.url : profile}
             alt=""
           />
           <div className="contFile">
@@ -60,7 +62,7 @@ function Settings() {
           </Link>
         </div>
       </div>
-    </div>
+    </div>: <p className="MensajeVacios">Loading</p>
   );
 }
 

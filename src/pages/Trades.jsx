@@ -59,10 +59,9 @@ function Trades() {
       <NotificationModal usuario={usuarioAct} />
       <div className="contenedorCard">
         {!AllTrades.msg ? (
-          AllTrades?.map((e) => {
-            console.log(e.condition);
+          AllTrades?.map((e, i) => {
             return (
-              <div className="contTrades">
+              <div key={i} className="contTrades">
                 <h3> This user {e.userA} sent you this offer</h3>
                 <div className="contTrades-cards" key={e.id}>
                   <div>
