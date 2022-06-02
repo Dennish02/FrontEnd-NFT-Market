@@ -203,8 +203,8 @@ export function venta(payload) {
           progress: undefined,
         });
       //socket.io
-      // socket.emit("Render");
-      socket.emit("update");
+      socket.emit("Render");
+      socket.emit("renderHome");
       return dispatch({
         type: CAMBIAR_VENTA,
         payload: _id,
