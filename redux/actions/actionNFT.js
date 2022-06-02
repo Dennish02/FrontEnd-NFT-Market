@@ -489,7 +489,6 @@ export function responseOffer({ response, newId }) {
 }
 
 export function cancelOffer({ id }) {
-  console.log(id);
   return async function (dispatch) {
     const token = localStorage.getItem("token");
     const authAxios = clienteAxios.create({

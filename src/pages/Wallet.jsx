@@ -321,7 +321,7 @@ function Wallet() {
           </section>
         ) : null}
       </div>
-    </div> : <p className="MensajeVacios">Loadig</p>
+    </div> : <p className="MensajeVacios">Loading</p>
   );
 }
 
