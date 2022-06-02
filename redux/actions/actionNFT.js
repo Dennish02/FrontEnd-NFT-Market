@@ -162,6 +162,7 @@ export function comprarNFT(payload) {
 
       //socket.io
       toast.success(`You bought this NFT: ${nft.data.NFT_id}`);
+      socket.emit('Render');
       socket.emit("renderHome");
     } catch (error) {
       toast.error(error.response.data.msg);
