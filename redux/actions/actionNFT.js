@@ -204,7 +204,7 @@ export function venta(payload) {
         });
       //socket.io
       // socket.emit("Render");
-      // socket.emit("update");
+      socket.emit("update");
       return dispatch({
         type: CAMBIAR_VENTA,
         payload: _id,
