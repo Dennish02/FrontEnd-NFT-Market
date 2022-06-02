@@ -41,7 +41,6 @@ function Trades() {
 
   const handleAccept = (e) => {
     dispatch(responseOffer({ response: true, newId: e }));
-    console.log({ response: true, newId: e });
   };
 
   const handleReject = (e) => {

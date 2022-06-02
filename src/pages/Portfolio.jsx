@@ -39,7 +39,6 @@ export default function Portfolio() {
   }, []);
 
   useEffect(() => {
-    // console.log("a");
   }, [nftUser]);
 
   return (

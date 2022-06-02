@@ -119,7 +119,6 @@ export function crearNFT(payload) {
         payload: true,
       });
     } catch (error) {
-      console.log(error.response.data.msg);
       toast.error(error.response.data.msg);
       return dispatch({
         type: CREATE_NFT,
@@ -461,7 +460,6 @@ export function seeOffers() {
 }
 
 export function responseOffer({ response, newId }) {
-  console.log(response, newId);
   return async function (dispatch) {
     const token = localStorage.getItem("token");
     const authAxios = clienteAxios.create({
