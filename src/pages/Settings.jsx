@@ -24,6 +24,7 @@ function Settings() {
     socket.on("nftUser2", () => {
       dispatch(usuarioActual());
     });
+   
   }, []);
 
   function handleImage(image) {
@@ -31,7 +32,8 @@ function Settings() {
   }
   return (
     <div className="contSettings">
-      <NavBar usuario={usuarioAct} />
+      {usuarioAct ?  <NavBar usuario={usuarioAct} /> : null}
+     
       <NotificationModal usuario={usuarioAct} />
       <div className="contSettings-info">
         <div className="contProfile">
