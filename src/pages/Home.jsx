@@ -99,7 +99,10 @@ export default function Home() {
 
   return (
     <div className="contentHome">
-      <NavBar usuario={usuarioAct} />
+      {usuarioAct.length !== 0 ? 
+             <NavBar usuario={usuarioAct} />
+    : <p>Loading</p>}
+   
       <NotificationModal usuario={usuarioAct} />
       <div>
         <SearchBar
